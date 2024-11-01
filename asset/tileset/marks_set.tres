@@ -1,0 +1,10 @@
+[gd_resource type="TileSet" load_steps=3 format=3 uid="uid://bveh5l6u2fgow"]
+
+[ext_resource type="PackedScene" uid="uid://bmuuxmcn5gi3l" path="res://editor/level/mark/solid.tscn" id="1_sdoss"]
+
+[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_jxyev"]
+scenes/1/scene = ExtResource("1_sdoss")
+
+[resource]
+tile_size = Vector2i(32, 32)
+sources/0 = SubResource("TileSetScenesCollectionSource_jxyev")

@@ -1,0 +1,53 @@
+[gd_scene load_steps=11 format=3 uid="uid://y2i7o7naha3f"]
+
+[ext_resource type="Script" path="res://moon/Godot/Platformer2D/CharaPlatformer2D.cs" id="1_q14k0"]
+[ext_resource type="Shader" path="res://moon/Shader/super_sai.gdshader" id="2_6bm1o"]
+[ext_resource type="SpriteFrames" uid="uid://c23quybvb4ic" path="res://asset/sprite/player/mario/mario_small.aseprite" id="2_nc2t5"]
+[ext_resource type="Script" path="res://moon/Godot/AnimSprite2D.cs" id="3_vlhyr"]
+[ext_resource type="Script" path="res://dev/Level/Player/PlayerRef.cs" id="5_phm8n"]
+[ext_resource type="Script" path="res://moon/Godot/Input/InputReal.cs" id="6_vrn4i"]
+[ext_resource type="Script" path="res://dev/Level/Player/PlayerWalk.cs" id="7_v7v88"]
+[ext_resource type="Script" path="res://dev/Level/Player/PlayerJump.cs" id="8_7e70i"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_d76tl"]
+size = Vector2(19, 26)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3m8al"]
+shader = ExtResource("2_6bm1o")
+shader_parameter/yuv_threshold = Vector3(0.188, 0.027, 0.024)
+shader_parameter/alpha_threshold = 0.2
+
+[node name="PlayerBase" type="CharacterBody2D"]
+collision_mask = 3221225472
+floor_snap_length = 4.0
+script = ExtResource("1_q14k0")
+GravityAccSpeed = 2500.0
+GravityDecSpeed = 2500.0
+
+[node name="CollisionShapeSmall" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_d76tl")
+
+[node name="TestAnim" type="AnimatedSprite2D" parent="."]
+material = SubResource("ShaderMaterial_3m8al")
+position = Vector2(0, -1)
+sprite_frames = ExtResource("2_nc2t5")
+animation = &"Idle"
+script = ExtResource("3_vlhyr")
+
+[node name="Ref" type="Node" parent="." node_paths=PackedStringArray("Body", "Input", "Walk", "Jump")]
+script = ExtResource("5_phm8n")
+Body = NodePath("..")
+Input = NodePath("../InputReal")
+Walk = NodePath("../Walk")
+Jump = NodePath("../Jump")
+
+[node name="InputReal" type="Node" parent="."]
+script = ExtResource("6_vrn4i")
+
+[node name="Walk" type="Node" parent="." node_paths=PackedStringArray("Ref")]
+script = ExtResource("7_v7v88")
+Ref = NodePath("../Ref")
+
+[node name="Jump" type="Node" parent="." node_paths=PackedStringArray("Ref")]
+script = ExtResource("8_7e70i")
+Ref = NodePath("../Ref")

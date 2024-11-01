@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://bmuuxmcn5gi3l"]
+
+[ext_resource type="Texture2D" uid="uid://gw56u0wtkhwt" path="res://asset/sprite/editor/solid.png" id="1_hxp5f"]
+[ext_resource type="Script" path="res://dev/Editor/editor_node.gd" id="2_n80im"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4qtw3"]
+size = Vector2(32, 32)
+
+[node name="Solid" type="StaticBody2D"]
+collision_layer = 2147483648
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_hxp5f")
+
+[node name="EditorNode" type="Node" parent="Sprite2D"]
+script = ExtResource("2_n80im")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_4qtw3")
