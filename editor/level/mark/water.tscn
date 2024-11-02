@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://cr2krodx0mvb5"]
+
+[ext_resource type="Script" path="res://moon/Godot/TextureFill/color_fill.gd" id="1_njays"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_aq6q4"]
+size = Vector2(32, 32)
+
+[node name="Water" type="StaticBody2D"]
+collision_mask = 0
+metadata/Water = true
+
+[node name="ColorFill" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 16.0
+script = ExtResource("1_njays")
+color = Color(0, 1, 1, 0.501961)
+debug_only = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_aq6q4")

@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=4 uid="uid://dv23hc5jyjdet"]
+[gd_scene load_steps=4 format=4 uid="uid://dv23hc5jyjdet"]
 
 [ext_resource type="TileSet" uid="uid://bveh5l6u2fgow" path="res://asset/tileset/marks_set.tres" id="1_6s1n2"]
 [ext_resource type="PackedScene" uid="uid://y2i7o7naha3f" path="res://asset/node/player/player_base.tscn" id="2_8w4k4"]
+[ext_resource type="PackedScene" uid="uid://cr2krodx0mvb5" path="res://editor/level/mark/water.tscn" id="3_q0umf"]
 
 [node name="LevelTestRoom" type="Node2D"]
 
@@ -11,3 +12,77 @@ tile_set = ExtResource("1_6s1n2")
 
 [node name="PlayerBase" parent="." instance=ExtResource("2_8w4k4")]
 position = Vector2(480, 448)
+
+[node name="Waters" type="Node2D" parent="."]
+
+[node name="Water" parent="Waters" instance=ExtResource("3_q0umf")]
+position = Vector2(400, 224)
+
+[node name="Water2" parent="Waters" instance=ExtResource("3_q0umf")]
+position = Vector2(432, 224)
+
+[node name="Water3" parent="Waters" instance=ExtResource("3_q0umf")]
+position = Vector2(464, 224)
+
+[node name="Water4" parent="Waters" instance=ExtResource("3_q0umf")]
+position = Vector2(400, 256)
+
+[node name="Water5" parent="Waters" instance=ExtResource("3_q0umf")]
+position = Vector2(432, 256)
+
+[node name="Water6" parent="Waters" instance=ExtResource("3_q0umf")]
+position = Vector2(464, 256)
+
+[node name="Water7" parent="Waters" instance=ExtResource("3_q0umf")]
+position = Vector2(400, 288)
+
+[node name="Water8" parent="Waters" instance=ExtResource("3_q0umf")]
+position = Vector2(432, 288)
+
+[node name="Water9" parent="Waters" instance=ExtResource("3_q0umf")]
+position = Vector2(464, 288)
+
+[node name="Water10" parent="Waters" instance=ExtResource("3_q0umf")]
+position = Vector2(400, 320)
+
+[node name="Water11" parent="Waters" instance=ExtResource("3_q0umf")]
+position = Vector2(432, 320)
+
+[node name="Water12" parent="Waters" instance=ExtResource("3_q0umf")]
+position = Vector2(464, 320)
+
+[node name="Water13" parent="Waters" instance=ExtResource("3_q0umf")]
+position = Vector2(304, 224)
+
+[node name="Water14" parent="Waters" instance=ExtResource("3_q0umf")]
+position = Vector2(336, 224)
+
+[node name="Water15" parent="Waters" instance=ExtResource("3_q0umf")]
+position = Vector2(368, 224)
+
+[node name="Water16" parent="Waters" instance=ExtResource("3_q0umf")]
+position = Vector2(304, 256)
+
+[node name="Water17" parent="Waters" instance=ExtResource("3_q0umf")]
+position = Vector2(336, 256)
+
+[node name="Water18" parent="Waters" instance=ExtResource("3_q0umf")]
+position = Vector2(368, 256)
+
+[node name="Water19" parent="Waters" instance=ExtResource("3_q0umf")]
+position = Vector2(304, 288)
+
+[node name="Water20" parent="Waters" instance=ExtResource("3_q0umf")]
+position = Vector2(336, 288)
+
+[node name="Water21" parent="Waters" instance=ExtResource("3_q0umf")]
+position = Vector2(368, 288)
+
+[node name="Water22" parent="Waters" instance=ExtResource("3_q0umf")]
+position = Vector2(304, 320)
+
+[node name="Water23" parent="Waters" instance=ExtResource("3_q0umf")]
+position = Vector2(336, 320)
+
+[node name="Water24" parent="Waters" instance=ExtResource("3_q0umf")]
+position = Vector2(368, 320)

@@ -6,5 +6,5 @@
 [node name="Save" type="Node"]
 script = ExtResource("1_fht3d")
 
-[node name="Global" type="Node" parent="."]
+[node name="Player" type="Node" parent="."]
 script = ExtResource("2_7lxlk")

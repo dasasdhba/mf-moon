@@ -1,3 +1,4 @@
+using Global;
 using Godot;
 
 namespace Level;
@@ -8,6 +9,7 @@ namespace Level;
 public partial class PlayerRef : Node
 {
     [ExportCategory("PlayerRef")]
+    [ExportGroup("Refs")]
     [Export]
     public CharaPlatformer2D Body { get ;set; }
     
@@ -19,4 +21,7 @@ public partial class PlayerRef : Node
     
     [Export]
     public PlayerJump Jump { get; set; }
+    
+    [Export]
+    public PlayerAnim Anim { get; set; }
 }

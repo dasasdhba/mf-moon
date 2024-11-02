@@ -10,6 +10,7 @@ namespace Level;
 public partial class PlayerWalk : Node
 {
     [ExportCategory("PlayerWalk")]
+    [ExportGroup("Settings")]
     [Export]
     public bool AllowCrouch { get; set; } = true;
 

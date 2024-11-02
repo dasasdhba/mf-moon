@@ -7,6 +7,7 @@ namespace Level;
 public partial class PlayerJump : Node
 {
     [ExportCategory("PlayerJump")]
+    [ExportGroup("Settings")]
     [Export]
     public float JumpSpeed { get ;set; } = 650f;
     
@@ -46,7 +47,7 @@ public partial class PlayerJump : Node
         this.AddPhysicsProcess(JumpProcess);
     }
 
-    public void JumpProcess(double delta)
+    protected void JumpProcess(double delta)
     {
         var input = Ref.Input;
         var body = Ref.Body;
