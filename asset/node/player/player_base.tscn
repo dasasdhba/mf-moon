@@ -21,6 +21,7 @@ shader_parameter/alpha_threshold = 0.2
 
 [node name="PlayerBase" type="CharacterBody2D"]
 collision_mask = 3221225472
+floor_max_angle = 1.0472
 floor_snap_length = 4.0
 script = ExtResource("1_q14k0")
 GravityAccSpeed = 2500.0
