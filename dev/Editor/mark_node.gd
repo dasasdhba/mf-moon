@@ -1,7 +1,7 @@
 extends Node
-class_name EditorNode
+class_name MarkNode
 
-@export_category("EditorNode")
+@export_category("MarkNode")
 @export var debug_show :bool = false
 
 func _ready() -> void:
@@ -9,7 +9,7 @@ func _ready() -> void:
 		get_parent().queue_free()
 		return
 
-	get_parent().hide()
+	get_parent().visible = debug_show
 
 func _input(event: InputEvent) -> void:
 	if !OS.is_debug_build():
