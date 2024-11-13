@@ -122,7 +122,7 @@ public partial class EnemyRef : Node
     public Vector2 GetLastMotion() 
         => Recorder?.GetLastMotion() ?? Vector2.Zero;
     public Vector2 GetLastSpeed()
-        => Recorder?.GetLastSpeed() ?? Vector2.Zero;
+        => Recorder?.GetLastVelocity() ?? Vector2.Zero;
     
     public static void SetEnemyRef(GodotObject node, EnemyRef enemyRef)
         => node.SetData("EnemyRef", enemyRef);
