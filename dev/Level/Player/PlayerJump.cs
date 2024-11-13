@@ -1,4 +1,5 @@
 using System;
+using Global;
 using Godot;
 using Utils;
 
@@ -86,7 +87,7 @@ public partial class PlayerJump : Node
 
         if (!body.IsInWater() && body.Gravity < 0f && input.GetKey("Jump").Pressed)
         {
-            var isLui = false; // TODO: lui check
+            var isLui = Globalvar.Player.State == Globalvar.PlayerState.Lui;
             
             float boost;
             if (isLui) boost = JumpBoostLui;

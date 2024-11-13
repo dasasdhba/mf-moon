@@ -61,8 +61,6 @@ public partial class PlayerWalk : Node
         var input = Ref.Input;
         var body = Ref.Body;
         
-        // TODO: control of multiple gravity directions
-        
         var dir = (input.GetKey("Right").Pressed ? 1 : 0)
                   - (input.GetKey("Left").Pressed ? 1 : 0);
         var last = body.GetLastMoveSpeed();
@@ -88,7 +86,7 @@ public partial class PlayerWalk : Node
 
         if (Move.IsMoving())
         {
-            if (last < MinSpeed)
+            if (Math.Abs(last) < MinSpeed)
             {
                 body.SetMoveSpeed(last + MinSpeed * lastDir);
             }
