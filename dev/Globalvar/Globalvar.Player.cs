@@ -8,7 +8,9 @@ public static partial class Globalvar
     {
         Small, 
         Super,
-        Fire
+        Fire,
+        Beet,
+        Lui
     }
     
     public static class Player

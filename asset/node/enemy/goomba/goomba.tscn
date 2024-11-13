@@ -1,0 +1,51 @@
+[gd_scene load_steps=10 format=3 uid="uid://dmp08tvmx4f6d"]
+
+[ext_resource type="Script" path="res://moon/Godot/Platformer2D/CharaPlatformer2D.cs" id="1_iofo6"]
+[ext_resource type="Script" path="res://moon/Godot/Platformer2D/PlatformerMove2D.cs" id="2_i4w85"]
+[ext_resource type="Shader" path="res://moon/Shader/super_sai.gdshader" id="2_wpskp"]
+[ext_resource type="SpriteFrames" uid="uid://cfkjcbejiiega" path="res://asset/sprite/enemy/goomba/goomba.aseprite" id="3_b0vcp"]
+[ext_resource type="Script" path="res://dev/Level/Enemy/Goomba/goomba_anim_timer.gd" id="4_x0awr"]
+[ext_resource type="Script" path="res://dev/Level/Enemy/enemy_turn_body.gd" id="5_xswd8"]
+[ext_resource type="Script" path="res://dev/Level/Enemy/Base/EnemyRef.cs" id="6_wvkff"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p74jm"]
+size = Vector2(30, 30)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hy5dr"]
+shader = ExtResource("2_wpskp")
+shader_parameter/yuv_threshold = Vector3(0.188, 0.027, 0.024)
+shader_parameter/alpha_threshold = 0.2
+
+[node name="Goomba" type="CharacterBody2D"]
+collision_mask = 2684354560
+script = ExtResource("1_iofo6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_p74jm")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+material = SubResource("ShaderMaterial_hy5dr")
+position = Vector2(0.5, 1)
+sprite_frames = ExtResource("3_b0vcp")
+animation = &"Idle"
+
+[node name="Timer" type="Timer" parent="AnimatedSprite2D"]
+wait_time = 0.2
+autostart = true
+script = ExtResource("4_x0awr")
+
+[node name="EnemyTurn" type="Node" parent="." node_paths=PackedStringArray("sync_collision_shape")]
+script = ExtResource("5_xswd8")
+sync_collision_shape = NodePath("../CollisionShape2D")
+
+[node name="EnemyRef" type="Node" parent="." node_paths=PackedStringArray("Body")]
+script = ExtResource("6_wvkff")
+Body = NodePath("..")
+
+[node name="PlatformerMove2D" type="Node" parent="." node_paths=PackedStringArray("Platformer")]
+script = ExtResource("2_i4w85")
+Platformer = NodePath("..")
+Speed = 50.0
+
+[connection signal="timeout" from="AnimatedSprite2D/Timer" to="AnimatedSprite2D/Timer" method="_on_timeout"]

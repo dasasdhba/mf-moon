@@ -24,4 +24,7 @@ public partial class PlayerRef : Node
     
     [Export]
     public PlayerAnim Anim { get; set; }
+    
+    [Export]
+    public PlayerStomp Stomp { get; set; }
 }

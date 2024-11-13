@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://y2i7o7naha3f"]
+[gd_scene load_steps=15 format=3 uid="uid://y2i7o7naha3f"]
 
 [ext_resource type="Script" path="res://moon/Godot/Platformer2D/CharaPlatformer2D.cs" id="1_q14k0"]
 [ext_resource type="Shader" path="res://moon/Shader/super_sai.gdshader" id="2_6bm1o"]
@@ -7,9 +7,11 @@
 [ext_resource type="AudioStream" uid="uid://cqqdxadpnvbj3" path="res://asset/audio/sound/player/jump.wav" id="5_1v03a"]
 [ext_resource type="Script" path="res://dev/Level/Player/PlayerRef.cs" id="5_phm8n"]
 [ext_resource type="AudioStream" uid="uid://dwtc2o2kwbxby" path="res://asset/audio/sound/player/swim.wav" id="6_bu04n"]
+[ext_resource type="AudioStream" uid="uid://b1evp7jstbh4w" path="res://asset/audio/sound/player/stomp.wav" id="6_laxqb"]
 [ext_resource type="Script" path="res://moon/Godot/Input/InputReal.cs" id="6_vrn4i"]
 [ext_resource type="Script" path="res://dev/Level/Player/PlayerWalk.cs" id="7_v7v88"]
 [ext_resource type="Script" path="res://dev/Level/Player/PlayerJump.cs" id="8_7e70i"]
+[ext_resource type="Script" path="res://dev/Level/Player/PlayerStomp.cs" id="11_4qdb6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_d76tl"]
 size = Vector2(19, 26)
@@ -46,16 +48,20 @@ animation = &"Idle"
 [node name="Jump" type="AudioStreamPlayer" parent="Sound"]
 stream = ExtResource("5_1v03a")
 
+[node name="Stomp" type="AudioStreamPlayer" parent="Sound"]
+stream = ExtResource("6_laxqb")
+
 [node name="Swim" type="AudioStreamPlayer" parent="Sound"]
 stream = ExtResource("6_bu04n")
 
-[node name="Ref" type="Node" parent="." node_paths=PackedStringArray("Body", "Input", "Walk", "Jump", "Anim")]
+[node name="Ref" type="Node" parent="." node_paths=PackedStringArray("Body", "Input", "Walk", "Jump", "Anim", "Stomp")]
 script = ExtResource("5_phm8n")
 Body = NodePath("..")
 Input = NodePath("../InputReal")
 Walk = NodePath("../Walk")
 Jump = NodePath("../Jump")
 Anim = NodePath("../Anim")
+Stomp = NodePath("../Stomp")
 
 [node name="InputReal" type="Node" parent="."]
 script = ExtResource("6_vrn4i")
@@ -68,6 +74,11 @@ Ref = NodePath("../Ref")
 script = ExtResource("8_7e70i")
 Ref = NodePath("../Ref")
 
+[node name="Stomp" type="Node" parent="." node_paths=PackedStringArray("Ref")]
+script = ExtResource("11_4qdb6")
+Ref = NodePath("../Ref")
+
 [connection signal="Jumped" from="Jump" to="Sound/Jump" method="play"]
 [connection signal="JumpedOutWater" from="Jump" to="Sound/Swim" method="play"]
 [connection signal="Swum" from="Jump" to="Sound/Swim" method="play"]
+[connection signal="Stomped" from="Stomp" to="Sound/Stomp" method="play"]
