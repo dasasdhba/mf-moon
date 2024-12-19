@@ -2,6 +2,7 @@ extends Node
 class_name EnemyTurn
 
 # make enemy turn when collide with each other
+# the shape should be rectangle without rotation
 
 @export_category("EnemyTurn")
 @export var sync_collision_shape :CollisionShape2D

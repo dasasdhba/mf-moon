@@ -70,7 +70,7 @@ public partial class PlayerJump : Node
             else
             {
                 input.SetKeyBuffered("Jump");
-                if (body.IsInWater(JumpOutWaterMargin * Vector2.Up))
+                if (body.IsInWater(JumpOutWaterMargin * body.UpDirection))
                 {
                     body.SetGravitySpeed(-SwimSpeed);
                     EmitSignal(SignalName.Swum);

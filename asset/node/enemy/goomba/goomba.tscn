@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://moon/Godot/Platformer2D/CharaPlatformer2D.cs" id="1_iofo6"]
 [ext_resource type="Script" path="res://moon/Godot/Platformer2D/PlatformerMove2D.cs" id="2_i4w85"]
-[ext_resource type="Shader" path="res://moon/Shader/super_sai.gdshader" id="2_wpskp"]
+[ext_resource type="Shader" path="res://shader/super_sai.gdshader" id="2_wpskp"]
 [ext_resource type="SpriteFrames" uid="uid://cfkjcbejiiega" path="res://asset/sprite/enemy/goomba/goomba.aseprite" id="3_b0vcp"]
 [ext_resource type="Script" path="res://dev/Level/Enemy/Goomba/goomba_anim_timer.gd" id="4_x0awr"]
 [ext_resource type="Script" path="res://dev/Level/Enemy/enemy_turn_body.gd" id="5_xswd8"]

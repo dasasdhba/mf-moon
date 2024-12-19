@@ -42,6 +42,8 @@ public partial class PlayerStomp : Node
             var e = EnemyRef.GetEnemyRef(result.Collider);
             
             // test delay, this approach could make sure the list is safe
+            // HACK: stomping flytroopa will generate normal troopa
+            // which should be included in OverlapDelayList as well
             
             if (OverlapDelayList.Contains(e)) continue;
             OverlapDelayList.Add(e);
@@ -52,7 +54,7 @@ public partial class PlayerStomp : Node
             
             if (CanStomp(e))
             {
-                StompJump();
+                StompJump(e.StompSpeed, e.StompJumpSpeed);
                 e.EmitSignal(EnemyRef.SignalName.Stomped, Ref);
             }
             else
@@ -94,6 +96,6 @@ public partial class PlayerStomp : Node
         }
         
         return !Overlap.IsOverlappingWith(e.Body, 
-        -dir * (playerMotion + enemyMotion + e.StompHeight));
+        -dir * (playerMotion - enemyMotion + e.StompHeight));
     }
 }
