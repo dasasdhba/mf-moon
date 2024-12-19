@@ -1,4 +1,6 @@
-﻿using Godot;
+﻿using Component;
+using Godot;
+using Godot.Collections;
 using GodotTask;
 
 namespace Global;
@@ -6,9 +8,10 @@ namespace Global;
 public partial class SceneSingleton : CanvasLayer
 {
     [ExportCategory("SceneSingleton")]
-    [ExportGroup("TransformLib")]
     [Export]
-    public PackedScene ColorTrans { get ;set; }
+    public Dictionary<string, PackedScene> TransLib { get ;set; } = new();
+    
+    public System.Collections.Generic.Dictionary<string, AsyncLoader<TransNode>> TransLoader { get ;set; } = new();
 
     [Signal]
     public delegate void TransInEndedEventHandler();
@@ -16,9 +19,17 @@ public partial class SceneSingleton : CanvasLayer
     protected TransNode TransNode { get ;set; }
     protected Tween TransTween { get ;set; }
 
+    public override void _EnterTree()
+    {
+        foreach (var key in TransLib.Keys)
+        {
+            TransLoader.Add(key, new AsyncLoader<TransNode>(this, TransLib[key]));
+        }
+    }
+
     public bool IsTrans() => IsInstanceValid(TransNode);
 
-    public async GDTaskVoid Trans(SceneTrans trans)
+    public async GDTask Trans(SceneTrans trans)
     {
         if (IsInstanceValid(TransNode)) TransNode.QueueFree();
         if (IsInstanceValid(TransTween)) TransTween.Kill();
