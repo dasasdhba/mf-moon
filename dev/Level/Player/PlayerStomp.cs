@@ -40,10 +40,13 @@ public partial class PlayerStomp : Node
                  ))
         {
             var e = EnemyRef.GetEnemyRef(result.Collider);
+            if (e.Disabled) continue;
             
             // test delay, this approach could make sure the list is safe
-            // HACK: stomping flytroopa will generate normal troopa
-            // which should be included in OverlapDelayList as well
+            
+            // ATTENTION: stomping flytroopa will generate normal troopa
+            // disable newly spawned enemies for a while is necessary
+            // or can we make it inherit the delay params here?
             
             if (OverlapDelayList.Contains(e)) continue;
             OverlapDelayList.Add(e);

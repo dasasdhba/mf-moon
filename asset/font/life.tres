@@ -1,0 +1,107 @@
+[gd_resource type="FontFile" script_class="TextureFont" load_steps=8 format=3 uid="uid://dwlu71bkjj8n1"]
+
+[ext_resource type="Image" uid="uid://cjuqh8vl26cuc" path="res://addons/texture_fonts/Assets/placeholder.png" id="1_3pl55"]
+[ext_resource type="Script" path="res://addons/texture_fonts/Classes/TextureFontSettings.gd" id="1_i1if3"]
+[ext_resource type="Script" path="res://addons/texture_fonts/Classes/TextureFont.gd" id="2_h1bqf"]
+[ext_resource type="Script" path="res://addons/texture_fonts/Classes/TextureFontMapping.gd" id="3_4gt30"]
+[ext_resource type="Texture2D" uid="uid://dyhg2oy3y3xnr" path="res://asset/font/texture/life_font.png" id="5_aexxa"]
+
+[sub_resource type="Resource" id="Resource_iknrq"]
+script = ExtResource("1_i1if3")
+char_settings = {}
+kerning_pairs = Array[Dictionary]([])
+gap = 0
+alignment = Vector2(0, 0)
+monospace = false
+descent = 16.0
+ascent = 0.0
+preview_color = Color(0.12549, 0.141176, 0.192157, 1)
+preview_chars = ""
+
+[sub_resource type="Resource" id="Resource_63hnv"]
+script = ExtResource("3_4gt30")
+source_texture = ExtResource("5_aexxa")
+rect_size = Vector2(16, 16)
+rect_gap = Vector2(0, 0)
+texture_offset = Vector2(0, 0)
+chars = "0123456789PU"
+
+[resource]
+oversampling = 1.0
+fixed_size = 16
+fixed_size_scale_mode = 2
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 16.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+cache/0/16/0/textures/0/offsets = PackedInt32Array()
+cache/0/16/0/textures/0/image = ExtResource("1_3pl55")
+cache/0/16/0/glyphs/48/advance = Vector2(11, 0)
+cache/0/16/0/glyphs/48/offset = Vector2(0, 0)
+cache/0/16/0/glyphs/48/size = Vector2(11, 16)
+cache/0/16/0/glyphs/48/uv_rect = Rect2(2, 0, 11, 16)
+cache/0/16/0/glyphs/48/texture_idx = 0
+cache/0/16/0/glyphs/49/advance = Vector2(10, 0)
+cache/0/16/0/glyphs/49/offset = Vector2(0, 0)
+cache/0/16/0/glyphs/49/size = Vector2(10, 16)
+cache/0/16/0/glyphs/49/uv_rect = Rect2(19, 0, 10, 16)
+cache/0/16/0/glyphs/49/texture_idx = 0
+cache/0/16/0/glyphs/50/advance = Vector2(13, 0)
+cache/0/16/0/glyphs/50/offset = Vector2(0, 0)
+cache/0/16/0/glyphs/50/size = Vector2(13, 16)
+cache/0/16/0/glyphs/50/uv_rect = Rect2(34, 0, 13, 16)
+cache/0/16/0/glyphs/50/texture_idx = 0
+cache/0/16/0/glyphs/51/advance = Vector2(13, 0)
+cache/0/16/0/glyphs/51/offset = Vector2(0, 0)
+cache/0/16/0/glyphs/51/size = Vector2(13, 16)
+cache/0/16/0/glyphs/51/uv_rect = Rect2(49, 0, 13, 16)
+cache/0/16/0/glyphs/51/texture_idx = 0
+cache/0/16/0/glyphs/52/advance = Vector2(14, 0)
+cache/0/16/0/glyphs/52/offset = Vector2(0, 0)
+cache/0/16/0/glyphs/52/size = Vector2(14, 16)
+cache/0/16/0/glyphs/52/uv_rect = Rect2(65, 0, 14, 16)
+cache/0/16/0/glyphs/52/texture_idx = 0
+cache/0/16/0/glyphs/53/advance = Vector2(13, 0)
+cache/0/16/0/glyphs/53/offset = Vector2(0, 0)
+cache/0/16/0/glyphs/53/size = Vector2(13, 16)
+cache/0/16/0/glyphs/53/uv_rect = Rect2(81, 0, 13, 16)
+cache/0/16/0/glyphs/53/texture_idx = 0
+cache/0/16/0/glyphs/54/advance = Vector2(12, 0)
+cache/0/16/0/glyphs/54/offset = Vector2(0, 0)
+cache/0/16/0/glyphs/54/size = Vector2(12, 16)
+cache/0/16/0/glyphs/54/uv_rect = Rect2(98, 0, 12, 16)
+cache/0/16/0/glyphs/54/texture_idx = 0
+cache/0/16/0/glyphs/55/advance = Vector2(14, 0)
+cache/0/16/0/glyphs/55/offset = Vector2(0, 0)
+cache/0/16/0/glyphs/55/size = Vector2(14, 16)
+cache/0/16/0/glyphs/55/uv_rect = Rect2(113, 0, 14, 16)
+cache/0/16/0/glyphs/55/texture_idx = 0
+cache/0/16/0/glyphs/56/advance = Vector2(13, 0)
+cache/0/16/0/glyphs/56/offset = Vector2(0, 0)
+cache/0/16/0/glyphs/56/size = Vector2(13, 16)
+cache/0/16/0/glyphs/56/uv_rect = Rect2(129, 0, 13, 16)
+cache/0/16/0/glyphs/56/texture_idx = 0
+cache/0/16/0/glyphs/57/advance = Vector2(13, 0)
+cache/0/16/0/glyphs/57/offset = Vector2(0, 0)
+cache/0/16/0/glyphs/57/size = Vector2(13, 16)
+cache/0/16/0/glyphs/57/uv_rect = Rect2(145, 0, 13, 16)
+cache/0/16/0/glyphs/57/texture_idx = 0
+cache/0/16/0/glyphs/80/advance = Vector2(13, 0)
+cache/0/16/0/glyphs/80/offset = Vector2(0, 0)
+cache/0/16/0/glyphs/80/size = Vector2(13, 16)
+cache/0/16/0/glyphs/80/uv_rect = Rect2(161, 0, 13, 16)
+cache/0/16/0/glyphs/80/texture_idx = 0
+cache/0/16/0/glyphs/85/advance = Vector2(13, 0)
+cache/0/16/0/glyphs/85/offset = Vector2(0, 0)
+cache/0/16/0/glyphs/85/size = Vector2(13, 16)
+cache/0/16/0/glyphs/85/uv_rect = Rect2(177, 0, 13, 16)
+cache/0/16/0/glyphs/85/texture_idx = 0
+cache/0/16/0/glyphs/32/advance = Vector2(0, 0)
+cache/0/16/0/glyphs/32/offset = Vector2(0, 0)
+cache/0/16/0/glyphs/32/size = Vector2(0, 0)
+cache/0/16/0/glyphs/32/uv_rect = Rect2(0, 0, 0, 0)
+cache/0/16/0/glyphs/32/texture_idx = 0
+script = ExtResource("2_h1bqf")
+texture_mappings = Array[ExtResource("3_4gt30")]([SubResource("Resource_63hnv")])
+font_settings = SubResource("Resource_iknrq")

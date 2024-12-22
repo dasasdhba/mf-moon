@@ -5,12 +5,43 @@ using Utils;
 
 namespace Level;
 
+/// <summary>
+/// Make the enemy hurt player, or allow it to be stomped.
+/// </summary>
 [GlobalClass, Tool]
 public partial class EnemyRef : Node
 {
+    private const string EnemyRefTag = "EnemyRef";
+    
+    public static bool HasEnemyRef(GodotObject node)
+        => node.HasData(EnemyRefTag);
+        
+    public static EnemyRef GetEnemyRef(GodotObject node)
+        => node.GetData<EnemyRef>(EnemyRefTag);
+
     [ExportCategory("EnemyRef")]
     [Export]
-    public CollisionObject2D Body { get; set; }
+    public CollisionObject2D Body
+    {
+        get => _Body;
+        set
+        {
+            if (_Body != value)
+            {
+                if (!Engine.IsEditorHint())
+                {
+                    _Body?.RemoveData(EnemyRefTag);
+                    value?.SetData(EnemyRefTag, this);
+                }
+                
+                _Body = value;
+            }
+        }
+    }
+    private CollisionObject2D _Body;
+    
+    [Export]
+    public bool Disabled { get; set; } = false;
     
     public enum StompType { Invalid = -1, Disabled = 0, Active = 1 }
     
@@ -108,29 +139,27 @@ public partial class EnemyRef : Node
     
         TreeEntered += () =>
         {
-            SetEnemyRef(Body, this);
-
             if (AllowStomp != StompType.Invalid)
             {
                 Recorder = new() { Target = Body };
                 AddChild(Recorder);
             }
+
+            if (EnemyAttacked.HasEnemyAttacked(Body))
+            {
+                var atk = EnemyAttacked.GetEnemyAttacked(Body);
+                SignalStomped += (p) =>
+                {
+                    atk.TryCast(EnemyAttacked.AttackType.Stomp);
+                };
+            }
         };
     }
     
     private MotionRecorder2D Recorder;
-    public Vector2 GetLastMotion() 
+    public Vector2 GetLastMotion()
         => Recorder?.GetLastMotion() ?? Vector2.Zero;
     public Vector2 GetLastSpeed()
         => Recorder?.GetLastVelocity() ?? Vector2.Zero;
-    
-    public static void SetEnemyRef(GodotObject node, EnemyRef enemyRef)
-        => node.SetData("EnemyRef", enemyRef);
-        
-    public static bool HasEnemyRef(GodotObject node)
-        => node.HasData("EnemyRef");
-        
-    public static EnemyRef GetEnemyRef(GodotObject node)
-        => node.GetData<EnemyRef>("EnemyRef");
 }
 

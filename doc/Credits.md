@@ -16,6 +16,7 @@
 
 ## Graphics
 
+* HUD/Score/Life Fonts by Yukana
 * Super Mario All-Stars Mario Custom Sprites by ANAS WAEL
 * Super Mario All-Stars
 
