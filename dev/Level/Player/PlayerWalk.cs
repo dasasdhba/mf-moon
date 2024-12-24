@@ -57,7 +57,7 @@ public partial class PlayerWalk : Node
 
     public override void _PhysicsProcess(double delta)
     {
-        var disabled = Ref.IsMovementDisabled();
+        var disabled = Ref.MovementControl.IsDisabled();
         Move.Disabled = disabled;
         if (disabled) return;
     
@@ -85,7 +85,8 @@ public partial class PlayerWalk : Node
         Move.AccSpeed = AccSpeed;
         Move.DecSpeed = DecSpeed;
         Move.TurnDec = TurnDec;
-        Move.MaxSpeed = input.GetKey("Fire").Pressed ? RunSpeed : WalkSpeed;
+        Move.MaxSpeed = input.GetKey("Fire").Pressed && !body.IsInWater()
+             ? RunSpeed : WalkSpeed;
 
         if (Move.IsMoving())
         {

@@ -50,7 +50,7 @@ public partial class PlayerJump : Node
 
     protected void JumpProcess(double delta)
     {
-        if (Ref.IsMovementDisabled()) return;
+        if (Ref.MovementControl.IsDisabled()) return;
     
         var input = Ref.Input;
         var body = Ref.Body;

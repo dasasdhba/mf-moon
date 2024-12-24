@@ -6,4 +6,7 @@
     <EnableDynamicLoading>true</EnableDynamicLoading>
     <RootNamespace>MFMoon</RootNamespace>
   </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="dev\Level\Bonus\Block\" />
+  </ItemGroup>
 </Project>

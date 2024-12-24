@@ -30,36 +30,42 @@ public partial class PlayerShape : Node
     public override void _EnterTree()
     {
         StuckDetect().Forget();
-        this.AddPhysicsProcess(Process);
+    }
+    
+    public override void _PhysicsProcess(double delta)
+    {
+        var isSmall = Globalvar.Player.State == Globalvar.PlayerState.Small
+                      || Ref.Walk.IsCrouching();
+            
+        SmallShape.SetDeferred(CollisionShape2D.PropertyName.Disabled, !isSmall);
+        SuperShape.SetDeferred(CollisionShape2D.PropertyName.Disabled, isSmall);
     }
     
     private bool IsOverlapping(Vector2 delta = default)
+        => Ref.Body.IsOverlapping(delta);
+    
+    private bool TryPush(Vector2 dir)
     {
-        return Ref.Body.TestMove(
-            Ref.Body.GlobalTransform with { Origin = Ref.Body.GlobalPosition + delta },
-            Vector2.Zero
-        );
-    }
+        if (IsOverlapping(StuckPushDownMargin * dir)) return false;
 
-    public void Process(double delta)
-    {
-        var isSmall = Globalvar.Player.State == Globalvar.PlayerState.Small
-            || Ref.Walk.IsCrouching();
-            
-        SmallShape.SetDeferred("disabled", !isSmall);
-        SuperShape.SetDeferred("disabled", isSmall);
+        while (IsOverlapping())
+        {
+            Ref.Body.GlobalPosition += dir;
+        }
+        
+        return true;
     }
 
     public async GDTaskVoid StuckDetect()
     {
         while (true)
         {
-            await Async.Delegate(this, () => !SuperShape.Disabled);
+            await Async.DelegatePhysics(this, () => !SuperShape.Disabled);
             
-            Stucked = IsOverlapping();
+            Stucked = !Ref.MovementControl.IsDisabled() && IsOverlapping();
             if (Stucked)
             {
-                Ref.DisableMovement("Stuck");
+                Ref.MovementControl.Disable("Stuck");
                 
                 var gDir = -Ref.Body.UpDirection;
                 var mDir = gDir.Orthogonal() * (Ref.Anim.FlipH ? -1 : 1);
@@ -75,22 +81,10 @@ public partial class PlayerShape : Node
                 
                 Stucked = false;
                 Ref.ClearSpeed();
-                Ref.EnableMovement("Stuck");
+                Ref.MovementControl.Enable("Stuck");
             }
             
-            await Async.Delegate(this, () => SuperShape.Disabled);
+            await Async.DelegatePhysics(this, () => SuperShape.Disabled);
         }
-    }
-
-    public bool TryPush(Vector2 dir)
-    {
-        if (IsOverlapping(StuckPushDownMargin * dir)) return false;
-
-        while (IsOverlapping())
-        {
-            Ref.Body.GlobalPosition += dir;
-        }
-        
-        return true;
     }
 }

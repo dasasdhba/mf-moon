@@ -1,0 +1,42 @@
+[gd_scene load_steps=9 format=3 uid="uid://blrj3t3awvwde"]
+
+[ext_resource type="Script" path="res://moon/Godot/Platformer2D/CharaPlatformer2D.cs" id="1_w1j33"]
+[ext_resource type="Texture2D" uid="uid://dcouigi1e63jt" path="res://asset/sprite/bonus/mushroom_red.png" id="2_fnkgr"]
+[ext_resource type="Shader" path="res://shader/super_sai.gdshader" id="2_yql28"]
+[ext_resource type="Script" path="res://moon/Godot/Platformer2D/PlatformerMove2D.cs" id="4_1mqla"]
+[ext_resource type="PackedScene" uid="uid://dao73w5byhlyt" path="res://asset/node/bonus/item_power_up.tscn" id="5_20i0m"]
+[ext_resource type="Script" path="res://dev/Level/Bonus/Item/ItemSprout.cs" id="6_fg8r1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ggqvo"]
+size = Vector2(30, 30)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qirs2"]
+shader = ExtResource("2_yql28")
+shader_parameter/yuv_threshold = Vector3(0.188, 0.027, 0.024)
+shader_parameter/alpha_threshold = 0.2
+
+[node name="MushroomRed" type="CharacterBody2D"]
+z_index = 1
+collision_mask = 2684354560
+script = ExtResource("1_w1j33")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_ggqvo")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_qirs2")
+position = Vector2(0, 1)
+texture = ExtResource("2_fnkgr")
+
+[node name="PlatformerMove2D" type="Node" parent="." node_paths=PackedStringArray("Platformer")]
+script = ExtResource("4_1mqla")
+Platformer = NodePath("..")
+Speed = 100.0
+
+[node name="ItemPowerUp" parent="." node_paths=PackedStringArray("Body") instance=ExtResource("5_20i0m")]
+Body = NodePath("..")
+
+[node name="ItemSprout" type="Node" parent="." node_paths=PackedStringArray("Body")]
+script = ExtResource("6_fg8r1")
+Body = NodePath("..")

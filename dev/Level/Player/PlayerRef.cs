@@ -1,5 +1,4 @@
-using System.Collections.Generic;
-using Global;
+using Component;
 using Godot;
 
 namespace Level;
@@ -27,74 +26,48 @@ public partial class PlayerRef : Node
     public PlayerAnim Anim { get; set; }
     
     [Export]
-    public PlayerStomp Stomp { get; set; }
-    
-    [Export]
     public PlayerShape Shape { get ;set; }
+    
+    // multiplayer is not planned
+    // static instance access can be very convenient in this case
 
-    public void ClearSpeed()
+    /// <summary>
+    /// Global access of player instance.
+    /// </summary>
+    public static PlayerRef Instance { get; private set; }
+
+    public PlayerRef() : base()
     {
-        Body.Gravity = 0f;
-        Body.MoveSpeed = 0f;
-        Walk.Move.Speed = 0f;
+        Instance = this;
+        
+        InputControl = new()
+        {
+            OnDisabled = () => Input = null,
+            OnEnabled = () => Input = RealInput
+        };
+        
+        MovementControl = new()
+        {
+            OnDisabled = () => Body.AutoProcess = false,
+            OnEnabled = () => Body.AutoProcess = true
+        };
     }
 
     public override void _EnterTree()
     {
         RealInput = Input;
     }
-
-    private List<string> InputIgnoreList = [];
+    
     private Inputer RealInput;
+    public DisableList InputControl { get; set; }
+    public DisableList MovementControl { get ;set; }
+    public DisableList StompControl { get ;set; } = new();
+    public DisableList ItemControl { get ;set; } = new();
     
-    public void IgnoreInput(string reason)
+    public void ClearSpeed()
     {
-        if (InputIgnoreList.Count == 0)
-        {
-            Input = null;
-        }
-        
-        InputIgnoreList.Add(reason);
+        Body.Gravity = 0f;
+        Body.MoveSpeed = 0f;
+        Walk.Move.Speed = 0f;
     }
-
-    public void ResumeInput(string reason)
-    {
-        InputIgnoreList.Remove(reason);
-        if (InputIgnoreList.Count == 0)
-        {
-            Input = RealInput;
-        }
-    }
-    
-    public bool IsInputIgnored() => InputIgnoreList.Count > 0;
-    
-    private List<string> DisableMovementList = [];
-    public void DisableMovement(string reason)
-    {
-        if (DisableMovementList.Count == 0)
-        {
-            Body.AutoProcess = false;
-        }
-        DisableMovementList.Add(reason);
-    }
-
-    public void EnableMovement(string reason)
-    {
-        DisableMovementList.Remove(reason);
-        if (DisableMovementList.Count == 0)
-        {
-            Body.AutoProcess = true;
-        }
-    }
-    
-    public bool IsMovementDisabled() => DisableMovementList.Count > 0;
-    
-    private List<string> DisableStompList = [];
-    public void DisableStomp(string reason)
-        => DisableStompList.Add(reason);
-        
-    public void EnableStomp(string reason)
-        => DisableStompList.Remove(reason);
-        
-    public bool IsStompDisabled() => DisableStompList.Count > 0;
 }

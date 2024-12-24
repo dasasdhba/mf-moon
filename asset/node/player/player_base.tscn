@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://y2i7o7naha3f"]
+[gd_scene load_steps=21 format=3 uid="uid://y2i7o7naha3f"]
 
 [ext_resource type="Script" path="res://moon/Godot/Platformer2D/CharaPlatformer2D.cs" id="1_q14k0"]
 [ext_resource type="Shader" path="res://shader/super_sai.gdshader" id="2_6bm1o"]
@@ -10,10 +10,13 @@
 [ext_resource type="AudioStream" uid="uid://dwtc2o2kwbxby" path="res://asset/audio/sound/player/swim.wav" id="6_bu04n"]
 [ext_resource type="AudioStream" uid="uid://b1evp7jstbh4w" path="res://asset/audio/sound/player/stomp.wav" id="6_laxqb"]
 [ext_resource type="Script" path="res://moon/Godot/Input/InputReal.cs" id="6_vrn4i"]
+[ext_resource type="SpriteFrames" uid="uid://bx0oiqk8jtnxx" path="res://asset/sprite/player/mario/mario_fire.aseprite" id="6_y03an"]
 [ext_resource type="Script" path="res://dev/Level/Player/PlayerWalk.cs" id="7_v7v88"]
 [ext_resource type="Script" path="res://dev/Level/Player/PlayerJump.cs" id="8_7e70i"]
+[ext_resource type="Script" path="res://dev/Level/Player/PlayerInfo.cs" id="9_kbkit"]
 [ext_resource type="Script" path="res://dev/Level/Player/PlayerStomp.cs" id="11_4qdb6"]
 [ext_resource type="Script" path="res://dev/Level/Player/PlayerShape.cs" id="13_v4kbb"]
+[ext_resource type="Script" path="res://dev/Level/Player/PlayerGetItem.cs" id="16_g1wcc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_d76tl"]
 size = Vector2(19, 26)
@@ -60,6 +63,12 @@ position = Vector2(0, -17)
 sprite_frames = ExtResource("5_k34yg")
 animation = &"Idle"
 
+[node name="Fire" type="AnimatedSprite2D" parent="Anim"]
+material = SubResource("ShaderMaterial_3m8al")
+position = Vector2(0, -17)
+sprite_frames = ExtResource("6_y03an")
+animation = &"Idle"
+
 [node name="Sound" type="Node" parent="."]
 
 [node name="Jump" type="AudioStreamPlayer" parent="Sound"]
@@ -71,14 +80,16 @@ stream = ExtResource("6_laxqb")
 [node name="Swim" type="AudioStreamPlayer" parent="Sound"]
 stream = ExtResource("6_bu04n")
 
-[node name="Ref" type="Node" parent="." node_paths=PackedStringArray("Body", "Input", "Walk", "Jump", "Anim", "Stomp", "Shape")]
+[node name="Info" type="Node" parent="."]
+script = ExtResource("9_kbkit")
+
+[node name="Ref" type="Node" parent="." node_paths=PackedStringArray("Body", "Input", "Walk", "Jump", "Anim", "Shape")]
 script = ExtResource("5_phm8n")
 Body = NodePath("..")
 Input = NodePath("../InputReal")
 Walk = NodePath("../Walk")
 Jump = NodePath("../Jump")
 Anim = NodePath("../Anim")
-Stomp = NodePath("../Stomp")
 Shape = NodePath("../Shape")
 
 [node name="InputReal" type="Node" parent="."]
@@ -94,6 +105,10 @@ Ref = NodePath("../Ref")
 
 [node name="Stomp" type="Node" parent="." node_paths=PackedStringArray("Ref")]
 script = ExtResource("11_4qdb6")
+Ref = NodePath("../Ref")
+
+[node name="ItemGet" type="Node" parent="." node_paths=PackedStringArray("Ref")]
+script = ExtResource("16_g1wcc")
 Ref = NodePath("../Ref")
 
 [node name="Shape" type="Node" parent="." node_paths=PackedStringArray("Ref", "SmallShape", "SuperShape")]

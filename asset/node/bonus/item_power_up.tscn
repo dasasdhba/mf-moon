@@ -1,0 +1,17 @@
+[gd_scene load_steps=5 format=3 uid="uid://dao73w5byhlyt"]
+
+[ext_resource type="Script" path="res://dev/Level/Bonus/Item/ItemPowerUp.cs" id="1_dld6y"]
+[ext_resource type="PackedScene" uid="uid://dogxnrfwpe0u8" path="res://asset/node/ui/effect/score_effect.tscn" id="2_0hk6j"]
+[ext_resource type="Script" path="res://moon/Godot/Audio/AudioOneshotPlayer.cs" id="2_ag8sf"]
+[ext_resource type="AudioStream" uid="uid://cti4kpehlfu71" path="res://asset/audio/sound/item/reserved.wav" id="2_ufte6"]
+
+[node name="ItemPowerUp" type="Node"]
+script = ExtResource("1_dld6y")
+Score = 1000
+ScoreScene = ExtResource("2_0hk6j")
+
+[node name="Reserved" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_ufte6")
+script = ExtResource("2_ag8sf")
+
+[connection signal="Reserved" from="." to="Reserved" method="PlayOneshot"]
