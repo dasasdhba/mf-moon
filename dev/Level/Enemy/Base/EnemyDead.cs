@@ -36,17 +36,17 @@ public partial class EnemyDead : Node
             if (child is EnemyDeadExtra extra) 
                 Extras.Add(extra);
         };
+        
+        TreeEntered += () =>
+        {
+            ScoreLoader = new(this, ScoreScene);
+        
+            if (DeadScene != null)
+                DeadLoader = new(this, DeadScene);
+        };
     }
     
     protected List<EnemyDeadExtra> Extras { get ;set; } = [];
-
-    public override void _EnterTree()
-    {
-        ScoreLoader = new(this, ScoreScene);
-        
-        if (DeadScene != null)
-            DeadLoader = new(this, DeadScene);
-    }
 
     protected virtual int GetScore(EnemyAttacked.AttackType atk)
     {

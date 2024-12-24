@@ -1,0 +1,19 @@
+[gd_scene load_steps=5 format=3 uid="uid://cfbewaeiy6uje"]
+
+[ext_resource type="PackedScene" uid="uid://bswlc6io6j5ov" path="res://asset/node/enemy/base/enemy_dead_drop.tscn" id="1_q15me"]
+[ext_resource type="Shader" path="res://shader/super_sai.gdshader" id="2_55krx"]
+[ext_resource type="SpriteFrames" uid="uid://cfkjcbejiiega" path="res://asset/sprite/enemy/goomba/goomba.aseprite" id="3_emr02"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_q1jq1"]
+shader = ExtResource("2_55krx")
+shader_parameter/yuv_threshold = Vector3(0.188, 0.027, 0.024)
+shader_parameter/alpha_threshold = 0.2
+
+[node name="GoombaDead" instance=ExtResource("1_q15me")]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="1"]
+material = SubResource("ShaderMaterial_q1jq1")
+position = Vector2(0.5, 1)
+sprite_frames = ExtResource("3_emr02")
+animation = &"Idle"
+flip_v = true

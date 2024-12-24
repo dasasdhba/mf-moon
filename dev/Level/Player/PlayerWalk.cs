@@ -1,4 +1,5 @@
 using System;
+using Global;
 using Godot;
 using Utils;
 
@@ -11,9 +12,6 @@ public partial class PlayerWalk : Node
 {
     [ExportCategory("PlayerWalk")]
     [ExportGroup("Settings")]
-    [Export]
-    public bool AllowCrouch { get; set; } = true;
-
     [Export]
     public float MinSpeed { get; set; } = 50f;
 
@@ -55,6 +53,7 @@ public partial class PlayerWalk : Node
     
     protected bool Crouching { get; set; } = false;
     public bool IsCrouching() => Crouching;
+    public bool IsAllowCrouch() => Globalvar.Player.State != Globalvar.PlayerState.Small;
 
     public override void _PhysicsProcess(double delta)
     {
@@ -66,7 +65,7 @@ public partial class PlayerWalk : Node
         var last = body.GetLastMoveSpeed();
         var lastDir = Math.Sign(last);
         
-        Crouching = AllowCrouch && body.IsOnFloor() && input.GetKey("Down").Pressed;
+        Crouching = IsAllowCrouch() && body.IsOnFloor() && input.GetKey("Down").Pressed;
         if (Crouching)
         {
             Move.Direction = 0;
@@ -88,10 +87,10 @@ public partial class PlayerWalk : Node
         {
             if (Math.Abs(last) < MinSpeed)
             {
-                body.SetMoveSpeed(last + MinSpeed * lastDir);
+                Move.Speed += MinSpeed * dir;
             }
         }
         
-        if (body.IsReallyOnWall()) body.SetMoveSpeed(0f);
+        if (body.IsReallyOnWall()) Move.Speed = 0f;
     }
 }

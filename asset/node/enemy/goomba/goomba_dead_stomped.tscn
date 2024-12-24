@@ -1,0 +1,38 @@
+[gd_scene load_steps=8 format=3 uid="uid://d1kfjgoxh5ili"]
+
+[ext_resource type="Script" path="res://moon/Godot/Platformer2D/CharaPlatformer2D.cs" id="1_dvonc"]
+[ext_resource type="Shader" path="res://shader/super_sai.gdshader" id="2_s5ggs"]
+[ext_resource type="SpriteFrames" uid="uid://cfkjcbejiiega" path="res://asset/sprite/enemy/goomba/goomba.aseprite" id="3_7tk4b"]
+[ext_resource type="Script" path="res://dev/Level/Enemy/Goomba/goomba_stomped_disappear.gd" id="4_n0gfy"]
+[ext_resource type="Script" path="res://moon/Component/ViewDestroyer.cs" id="5_xyaoj"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p74jm"]
+size = Vector2(30, 30)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hy5dr"]
+shader = ExtResource("2_s5ggs")
+shader_parameter/yuv_threshold = Vector3(0.188, 0.027, 0.024)
+shader_parameter/alpha_threshold = 0.2
+
+[node name="GoombaStomped" type="CharacterBody2D"]
+z_index = -1
+collision_mask = 2684354560
+script = ExtResource("1_dvonc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_p74jm")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+material = SubResource("ShaderMaterial_hy5dr")
+position = Vector2(0.5, 1)
+sprite_frames = ExtResource("3_7tk4b")
+animation = &"Death"
+
+[node name="Disappear" type="Node" parent="."]
+script = ExtResource("4_n0gfy")
+
+[node name="ViewDestroyer" type="Node" parent="." node_paths=PackedStringArray("MonitorNode")]
+script = ExtResource("5_xyaoj")
+MonitorNode = NodePath("..")
+Area = 1

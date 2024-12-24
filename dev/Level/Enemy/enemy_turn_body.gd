@@ -16,7 +16,7 @@ func _ready() -> void:
 		return
 
 	var body = StaticBody2D.new()
-	body.collision_layer = 536870912 # 30 on only
+	body.collision_layer = 268435456 # 29 on only
 	body.collision_mask = 0
 
 	var new_shape := RectangleShape2D.new()

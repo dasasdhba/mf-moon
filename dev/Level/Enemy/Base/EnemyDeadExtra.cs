@@ -7,15 +7,18 @@ namespace Level;
 /// </summary>
 public partial class EnemyDeadExtra : Node
 {
-    [ExportGroup("EnemyDeadExtra")]
+    [ExportCategory("EnemyDeadExtra")]
     [Export]
     public EnemyAttacked.AttackType Type { get ;set; } = EnemyAttacked.AttackType.Stomp;
 
     protected EnemyDead Default { get; set; }
 
-    public override void _EnterTree()
+    public EnemyDeadExtra() : base()
     {
-        Default = GetParent<EnemyDead>();
+        TreeEntered += () =>
+        {
+            Default = GetParent<EnemyDead>();
+        };
     }
     
     public virtual bool IsExtraValid(EnemyAttacked.AttackType atk) => atk == Type;
