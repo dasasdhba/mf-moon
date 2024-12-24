@@ -33,6 +33,8 @@ public partial class PlayerStomp : Node
 
     protected void StompProcess(double delta)
     {
+        if (Ref.IsStompDisabled()) return;
+    
         foreach (var result in Overlap.GetOverlappingObjects(
                      r => EnemyRef.HasEnemyRef(r.Collider),
                      Vector2.Zero,

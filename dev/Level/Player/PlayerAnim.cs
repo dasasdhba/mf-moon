@@ -42,6 +42,20 @@ public partial class PlayerAnim : AnimGroup2D
         
         CurrentSprite = Globalvar.Player.State.ToString();
         SpeedScale = 1f;
+
+        if (Ref.Shape.IsStucked())
+        {
+            Play("Idle");
+            return;
+        }
+
+        if (walk.IsCrouching())
+        {
+            Play("Crouch");
+            return;
+        }
+        
+        // general animation
         
         var speed = body.GetLastMoveSpeed();
         if (speed != 0f) FlipH = speed < 0f;

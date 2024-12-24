@@ -57,6 +57,10 @@ public partial class PlayerWalk : Node
 
     public override void _PhysicsProcess(double delta)
     {
+        var disabled = Ref.IsMovementDisabled();
+        Move.Disabled = disabled;
+        if (disabled) return;
+    
         var input = Ref.Input;
         var body = Ref.Body;
         

@@ -40,6 +40,9 @@ public partial class EnemyRef : Node
     }
     private CollisionObject2D _Body;
     
+    /// <summary>
+    /// The player will have no effect on disabled enemy.
+    /// </summary>
     [Export]
     public bool Disabled { get; set; } = false;
     

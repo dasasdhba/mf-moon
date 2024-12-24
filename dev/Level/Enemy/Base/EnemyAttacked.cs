@@ -37,6 +37,12 @@ public partial class EnemyAttacked : Node
     [Export]
     public EnemyDead Dead { get ;set; }
     
+    /// <summary>
+    /// Enemy in disabled state will ignore everything.
+    /// </summary>
+    [Export]
+    public bool Disabled { get; set; } = false;
+    
     [Export]
     public int ShellHardness { get; set; } = 0;
     
@@ -106,19 +112,19 @@ public partial class EnemyAttacked : Node
         => Settings[atk];
     
     /// <summary>
-    /// return true if the attack is accepted.
+    /// return the respond.
     /// </summary>
-    public bool TryCast(AttackType atk)
+    public RespondType TryCast(AttackType atk)
     {
         var res = GetSettings(atk);
         
-        if (res == RespondType.Ignore) return false;
+        if (Disabled || res == RespondType.Ignore) return res;
         
         if (res == RespondType.Valid)
         {
             Dead.Cast(atk);
         }
         
-        return true;
+        return res;
     }
 }
