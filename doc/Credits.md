@@ -29,6 +29,7 @@
 * Super Mario All-Stars
 * Super Mario Bros. 3
 * New Super Mario Bros. Wii
+* New Super Mario Bros. U
 
 ### Rippers
 
