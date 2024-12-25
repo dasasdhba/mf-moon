@@ -29,7 +29,7 @@ public partial class EnemyDeadCustom : EnemyDeadExtra
 
     public override void Die()
     {
-        var root = Default.Root;
+        var root = Default.Body;
         if (DeadLoader != null)
         {
             var dead = DeadLoader.Create();

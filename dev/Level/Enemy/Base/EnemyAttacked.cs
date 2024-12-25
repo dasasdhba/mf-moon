@@ -34,9 +34,6 @@ public partial class EnemyAttacked : Node
     }
     private CollisionObject2D _Body;
     
-    [Export]
-    public EnemyDead Dead { get ;set; }
-    
     /// <summary>
     /// Enemy in disabled state will ignore everything.
     /// </summary>
@@ -110,6 +107,9 @@ public partial class EnemyAttacked : Node
         
     public RespondType GetSettings(AttackType atk)
         => Settings[atk];
+        
+    [Signal]
+    public delegate void AttackedEventHandler(int atk);
     
     /// <summary>
     /// return the respond.
@@ -118,11 +118,11 @@ public partial class EnemyAttacked : Node
     {
         var res = GetSettings(atk);
         
-        if (Disabled || res == RespondType.Ignore) return res;
+        if (Disabled || res == RespondType.Ignore) return RespondType.Ignore;
         
         if (res == RespondType.Valid)
         {
-            Dead.Cast(atk);
+            EmitSignal(SignalName.Attacked, (int)atk);
         }
         
         return res;

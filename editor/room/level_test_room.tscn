@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=4 uid="uid://dv23hc5jyjdet"]
+[gd_scene load_steps=10 format=4 uid="uid://dv23hc5jyjdet"]
 
 [ext_resource type="TileSet" uid="uid://bveh5l6u2fgow" path="res://asset/tileset/marks_set.tres" id="1_6s1n2"]
 [ext_resource type="PackedScene" uid="uid://y2i7o7naha3f" path="res://asset/node/player/player_base.tscn" id="2_8w4k4"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://moon/Godot/View/View2D.cs" id="6_o77mk"]
 [ext_resource type="PackedScene" uid="uid://blrj3t3awvwde" path="res://editor/level/bonus/mushroom_red.tscn" id="7_66u64"]
 [ext_resource type="PackedScene" uid="uid://jt3sueal15ax" path="res://editor/level/bonus/fire_flower.tscn" id="8_u0a4x"]
+[ext_resource type="PackedScene" uid="uid://bmuuxmcn5gi3l" path="res://editor/level/mark/solid.tscn" id="9_xla6r"]
 
 [node name="LevelTestRoom" type="Node2D"]
 
@@ -96,3 +97,8 @@ position = Vector2(272, 304)
 
 [node name="FireFlower2" parent="." instance=ExtResource("8_u0a4x")]
 position = Vector2(144, 352)
+
+[node name="Solid" parent="." instance=ExtResource("9_xla6r")]
+position = Vector2(480, 144)
+rotation = 0.523598
+scale = Vector2(11, 1)

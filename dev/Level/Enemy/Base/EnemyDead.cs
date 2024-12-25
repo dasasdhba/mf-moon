@@ -8,7 +8,13 @@ public partial class EnemyDead : Node
 {
     [ExportCategory("EnemyDead")]
     [Export]
-    public Node2D Root { get ;set; }
+    public Node2D Body { get ;set; }
+    
+    /// <summary>
+    /// If true, the Cast method has to be called manually.
+    /// </summary>
+    [Export]
+    public bool Manual { get ;set; } = false;
     
     [ExportGroup("ScoreSettings")]
     [Export]
@@ -43,6 +49,12 @@ public partial class EnemyDead : Node
         
             if (DeadScene != null)
                 DeadLoader = new(this, DeadScene);
+
+            if (!Manual && EnemyAttacked.HasEnemyAttacked(Body))
+            {
+                var atked = EnemyAttacked.GetEnemyAttacked(Body);
+                atked.SignalAttacked += (int atk) => Cast((EnemyAttacked.AttackType)atk);
+            }
         };
     }
     
@@ -65,8 +77,8 @@ public partial class EnemyDead : Node
         
         var scoreNode = ScoreLoader.Create();
         scoreNode.Value = score;
-        scoreNode.Position = Root.Position + ScoreOffset;
-        Root.AddSibling(scoreNode);
+        scoreNode.Position = Body.Position + ScoreOffset;
+        Body.AddSibling(scoreNode);
     }
 
     /// <summary>
@@ -77,11 +89,11 @@ public partial class EnemyDead : Node
         if (DeadLoader != null)
         {
             var dead = DeadLoader.Create();
-            dead.Position = Root.Position + DeadOffset;
-            Root.AddSibling(dead);
+            dead.Position = Body.Position + DeadOffset;
+            Body.AddSibling(dead);
         }
         
-        Root.QueueFree();
+        Body.QueueFree();
     }
     
     public void Cast(EnemyAttacked.AttackType atk)

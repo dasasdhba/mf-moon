@@ -95,7 +95,11 @@ public partial class PlayerWalk : Node
                 Move.Speed += MinSpeed * dir;
             }
         }
-        
-        if (body.IsReallyOnWall()) Move.Speed = 0f;
+
+        if (body.IsReallyOnWall())
+        {
+            Move.Speed = 0f;
+            if (body.IsOnFloor()) Move.Direction = 0; // prevent animation issue
+        }
     }
 }

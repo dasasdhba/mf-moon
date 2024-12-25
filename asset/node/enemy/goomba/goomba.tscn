@@ -49,13 +49,12 @@ sync_collision_shape = NodePath("../CollisionShape2D")
 script = ExtResource("6_wvkff")
 Body = NodePath("..")
 
-[node name="EnemyAttacked" type="Node" parent="." node_paths=PackedStringArray("Body", "Dead")]
+[node name="EnemyAttacked" type="Node" parent="." node_paths=PackedStringArray("Body")]
 script = ExtResource("7_pd1p6")
 Body = NodePath("..")
-Dead = NodePath("../EnemyDead")
 
-[node name="EnemyDead" parent="." node_paths=PackedStringArray("Root") instance=ExtResource("8_6hsrs")]
-Root = NodePath("..")
+[node name="EnemyDead" parent="." node_paths=PackedStringArray("Body") instance=ExtResource("8_6hsrs")]
+Body = NodePath("..")
 DeadScene = ExtResource("9_i6q5b")
 
 [node name="Stomp" type="Node" parent="EnemyDead"]
