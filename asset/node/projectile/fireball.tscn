@@ -63,10 +63,10 @@ script = ExtResource("8_u1ks0")
 Root = NodePath("..")
 Node2DScene = ExtResource("9_vwf58")
 
-[node name="Explosion" type="Node" parent="." node_paths=PackedStringArray("Fireball", "BoomCaster", "ExplosionSound")]
+[node name="Explosion" type="Node" parent="." node_paths=PackedStringArray("Fireball", "Boom", "ExplosionSound")]
 script = ExtResource("10_bijwu")
 Fireball = NodePath("..")
-BoomCaster = NodePath("../Boom")
+Boom = NodePath("../Boom")
 ExplosionSound = NodePath("../ExplodeSound")
 
 [node name="ExplodeSound" type="AudioStreamPlayer" parent="."]
