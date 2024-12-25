@@ -43,11 +43,15 @@ public partial class ItemSprout : Node
     protected virtual void DisableBody()
     {
         if (Body is CharaPlatformer2D chara) chara.AutoProcess = false;
+        if (ItemRef.HasItemRef(Body))
+            ItemRef.GetItemRef(Body).Disabled = true;
     }
 
     protected virtual void RestoreBody()
     {
         if (Body is CharaPlatformer2D chara) chara.AutoProcess = true;
+        if (ItemRef.HasItemRef(Body))
+            ItemRef.GetItemRef(Body).Disabled = false;
     }
     
     protected virtual bool ShouldSprout() => Body.IsOverlapping();
@@ -61,8 +65,6 @@ public partial class ItemSprout : Node
 
     public async GDTaskVoid Sprout()
     {
-        if (ItemRef.HasItemRef(Body))
-            ItemRef.GetItemRef(Body).Disabled = true;
         var zOrigin = Body.ZIndex;
         Body.ZIndex = ZIndex;
         DisableBody();
@@ -70,8 +72,6 @@ public partial class ItemSprout : Node
         await GDTask.WaitForPhysicsProcess();
         await Async.DelegatePhysicsProcess(this, SproutProcess);
         
-        if (ItemRef.HasItemRef(Body))
-            ItemRef.GetItemRef(Body).Disabled = false;
         Body.ZIndex = zOrigin;
         RestoreBody();
     }

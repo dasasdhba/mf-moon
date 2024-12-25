@@ -9,6 +9,8 @@
 * 0: Misc
 * 1: Items
 * 5: Mario
+* 10: Projectile(Fileball, Beet, Hammer, etc.)
+* 15: Boom
 * 100: Score/Life Effect
 
 ## Canvas Layer

@@ -1,6 +1,7 @@
 using System;
 using Global;
 using Godot;
+using Utils;
 
 namespace Level;
 
@@ -33,15 +34,24 @@ public partial class PlayerAnim : AnimGroup2D
         };
         
         CurrentSprite = Globalvar.Player.State.ToString();
+        
+        this.AddPhysicsProcess(Process);
     }
+    
+    private const double LaunchTime = 0.05d;
+    private double LaunchTimer = 0d;
+    
+    public void PlayLaunch() => LaunchTimer = LaunchTime;
 
-    public override void _PhysicsProcess(double delta)
+    protected void Process(double delta)
     {
         var body = Ref.Body;
         var walk = Ref.Walk;
         
         CurrentSprite = Globalvar.Player.State.ToString();
         SpeedScale = 1f;
+        
+        if (LaunchTimer > 0d) LaunchTimer -= delta;
 
         if (Ref.Shape.IsStucked())
         {
@@ -52,6 +62,12 @@ public partial class PlayerAnim : AnimGroup2D
         if (walk.IsCrouching())
         {
             Play("Crouch");
+            return;
+        }
+
+        if (LaunchTimer > 0d && body.IsOnFloor())
+        {
+            Play("Launch");
             return;
         }
         

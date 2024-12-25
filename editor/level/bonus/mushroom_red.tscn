@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://blrj3t3awvwde"]
+[gd_scene load_steps=10 format=3 uid="uid://blrj3t3awvwde"]
 
 [ext_resource type="Script" path="res://moon/Godot/Platformer2D/CharaPlatformer2D.cs" id="1_w1j33"]
 [ext_resource type="Texture2D" uid="uid://dcouigi1e63jt" path="res://asset/sprite/bonus/mushroom_red.png" id="2_fnkgr"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://moon/Godot/Platformer2D/PlatformerMove2D.cs" id="4_1mqla"]
 [ext_resource type="PackedScene" uid="uid://dao73w5byhlyt" path="res://asset/node/bonus/item_power_up.tscn" id="5_20i0m"]
 [ext_resource type="Script" path="res://dev/Level/Bonus/Item/ItemSprout.cs" id="6_fg8r1"]
+[ext_resource type="Script" path="res://moon/Component/ViewDestroyer.cs" id="7_10d7g"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ggqvo"]
 size = Vector2(30, 30)
@@ -40,3 +41,8 @@ Body = NodePath("..")
 [node name="ItemSprout" type="Node" parent="." node_paths=PackedStringArray("Body")]
 script = ExtResource("6_fg8r1")
 Body = NodePath("..")
+
+[node name="ViewDestroyer" type="Node" parent="." node_paths=PackedStringArray("MonitorNode")]
+script = ExtResource("7_10d7g")
+MonitorNode = NodePath("..")
+Area = 1

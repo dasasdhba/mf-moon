@@ -1,0 +1,19 @@
+[gd_scene load_steps=5 format=3 uid="uid://d3yyy8breqnwh"]
+
+[ext_resource type="Shader" path="res://shader/super_sai.gdshader" id="1_6c8am"]
+[ext_resource type="SpriteFrames" uid="uid://pgmg5sweelq5" path="res://asset/sprite/effect/boom.aseprite" id="2_wjtcg"]
+[ext_resource type="Script" path="res://moon/Godot/Anim/AnimSprite2D.cs" id="3_kdp07"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_iwj8e"]
+shader = ExtResource("1_6c8am")
+shader_parameter/yuv_threshold = Vector3(0.188, 0.027, 0.024)
+shader_parameter/alpha_threshold = 0.2
+
+[node name="Boom" type="AnimatedSprite2D"]
+z_index = 15
+material = SubResource("ShaderMaterial_iwj8e")
+sprite_frames = ExtResource("2_wjtcg")
+animation = &"Default"
+script = ExtResource("3_kdp07")
+
+[connection signal="animation_finished" from="." to="." method="queue_free"]

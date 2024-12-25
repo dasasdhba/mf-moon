@@ -53,7 +53,7 @@ public partial class PlayerWalk : Node
     
     protected bool Crouching { get; set; } = false;
     public bool IsCrouching() => Crouching;
-    public bool IsAllowCrouch() => Globalvar.Player.State != Globalvar.PlayerState.Small;
+    public static bool IsAllowCrouch() => Globalvar.Player.State != Globalvar.PlayerState.Small;
 
     public override void _PhysicsProcess(double delta)
     {
