@@ -1,0 +1,8 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://bf7ck1w6bycuk"]
+
+[ext_resource type="Shader" path="res://shader/super_sai.gdshader" id="1_y8bbu"]
+
+[resource]
+shader = ExtResource("1_y8bbu")
+shader_parameter/yuv_threshold = Vector3(0.188, 0.027, 0.024)
+shader_parameter/alpha_threshold = 0.2

@@ -1,8 +1,9 @@
-[gd_scene load_steps=16 format=3 uid="uid://dmp08tvmx4f6d"]
+[gd_scene load_steps=15 format=3 uid="uid://dmp08tvmx4f6d"]
 
 [ext_resource type="Script" path="res://moon/Godot/Platformer2D/CharaPlatformer2D.cs" id="1_iofo6"]
 [ext_resource type="Script" path="res://moon/Godot/Platformer2D/PlatformerMove2D.cs" id="2_i4w85"]
-[ext_resource type="Shader" path="res://shader/super_sai.gdshader" id="2_wpskp"]
+[ext_resource type="Material" uid="uid://bf7ck1w6bycuk" path="res://asset/material/super_sai.tres" id="2_l6ri5"]
+[ext_resource type="Shape2D" uid="uid://byt80g1jyj5b1" path="res://asset/shape/enemy_std.tres" id="2_ow4te"]
 [ext_resource type="SpriteFrames" uid="uid://cfkjcbejiiega" path="res://asset/sprite/enemy/goomba/goomba.aseprite" id="3_b0vcp"]
 [ext_resource type="Script" path="res://dev/Level/Enemy/Goomba/goomba_anim_timer.gd" id="4_x0awr"]
 [ext_resource type="Script" path="res://dev/Level/Enemy/enemy_turn_body.gd" id="5_xswd8"]
@@ -14,24 +15,16 @@
 [ext_resource type="PackedScene" uid="uid://d1kfjgoxh5ili" path="res://asset/node/enemy/goomba/goomba_dead_stomped.tscn" id="11_vwxcw"]
 [ext_resource type="Script" path="res://moon/Component/ViewDestroyer.cs" id="13_tbkks"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_p74jm"]
-size = Vector2(30, 30)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_hy5dr"]
-shader = ExtResource("2_wpskp")
-shader_parameter/yuv_threshold = Vector3(0.188, 0.027, 0.024)
-shader_parameter/alpha_threshold = 0.2
-
 [node name="Goomba" type="CharacterBody2D"]
 collision_mask = 2952790016
 script = ExtResource("1_iofo6")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 1)
-shape = SubResource("RectangleShape2D_p74jm")
+shape = ExtResource("2_ow4te")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-material = SubResource("ShaderMaterial_hy5dr")
+material = ExtResource("2_l6ri5")
 position = Vector2(0.5, 1)
 sprite_frames = ExtResource("3_b0vcp")
 animation = &"Idle"

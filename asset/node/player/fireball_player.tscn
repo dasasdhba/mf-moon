@@ -1,13 +1,17 @@
-[gd_scene load_steps=7 format=3 uid="uid://bna8f8bh6ur2o"]
+[gd_scene load_steps=8 format=3 uid="uid://bna8f8bh6ur2o"]
 
 [ext_resource type="PackedScene" uid="uid://dvskw21sdmn4" path="res://asset/node/projectile/fireball.tscn" id="1_wjxgv"]
 [ext_resource type="Script" path="res://moon/Component/ViewDestroyer.cs" id="2_nw7co"]
+[ext_resource type="Material" uid="uid://bf7ck1w6bycuk" path="res://asset/material/super_sai.tres" id="2_s5ug1"]
 [ext_resource type="Script" path="res://dev/Level/Enemy/Base/Attacker.cs" id="3_26k3e"]
 [ext_resource type="AudioStream" uid="uid://clgeos1e5evrk" path="res://asset/audio/sound/effect/combo_1.wav" id="4_2jdrw"]
 [ext_resource type="Script" path="res://moon/Godot/Audio/AudioOneshotPlayer.cs" id="4_633od"]
 [ext_resource type="Script" path="res://dev/Level/Player/Attack/fireball_hit_enemy.gd" id="6_231sv"]
 
 [node name="FireballPlayer" instance=ExtResource("1_wjxgv")]
+
+[node name="Sprite2D" parent="." index="0"]
+material = ExtResource("2_s5ug1")
 
 [node name="ViewDestroyer" type="Node" parent="." index="7" node_paths=PackedStringArray("MonitorNode")]
 script = ExtResource("2_nw7co")

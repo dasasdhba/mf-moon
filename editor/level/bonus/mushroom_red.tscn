@@ -1,20 +1,13 @@
-[gd_scene load_steps=10 format=3 uid="uid://blrj3t3awvwde"]
+[gd_scene load_steps=9 format=3 uid="uid://blrj3t3awvwde"]
 
 [ext_resource type="Script" path="res://moon/Godot/Platformer2D/CharaPlatformer2D.cs" id="1_w1j33"]
+[ext_resource type="Shape2D" uid="uid://byt80g1jyj5b1" path="res://asset/shape/enemy_std.tres" id="2_b155d"]
+[ext_resource type="Material" uid="uid://bf7ck1w6bycuk" path="res://asset/material/super_sai.tres" id="2_cg7ii"]
 [ext_resource type="Texture2D" uid="uid://dcouigi1e63jt" path="res://asset/sprite/bonus/mushroom_red.png" id="2_fnkgr"]
-[ext_resource type="Shader" path="res://shader/super_sai.gdshader" id="2_yql28"]
 [ext_resource type="Script" path="res://moon/Godot/Platformer2D/PlatformerMove2D.cs" id="4_1mqla"]
 [ext_resource type="PackedScene" uid="uid://dao73w5byhlyt" path="res://asset/node/bonus/item_power_up.tscn" id="5_20i0m"]
 [ext_resource type="Script" path="res://dev/Level/Bonus/Item/ItemSprout.cs" id="6_fg8r1"]
 [ext_resource type="Script" path="res://moon/Component/ViewDestroyer.cs" id="7_10d7g"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ggqvo"]
-size = Vector2(30, 30)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_qirs2"]
-shader = ExtResource("2_yql28")
-shader_parameter/yuv_threshold = Vector3(0.188, 0.027, 0.024)
-shader_parameter/alpha_threshold = 0.2
 
 [node name="MushroomRed" type="CharacterBody2D"]
 z_index = 1
@@ -23,10 +16,10 @@ script = ExtResource("1_w1j33")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 1)
-shape = SubResource("RectangleShape2D_ggqvo")
+shape = ExtResource("2_b155d")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-material = SubResource("ShaderMaterial_qirs2")
+material = ExtResource("2_cg7ii")
 position = Vector2(0, 1)
 texture = ExtResource("2_fnkgr")
 

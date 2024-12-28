@@ -1,20 +1,13 @@
-[gd_scene load_steps=10 format=3 uid="uid://jt3sueal15ax"]
+[gd_scene load_steps=9 format=3 uid="uid://jt3sueal15ax"]
 
 [ext_resource type="Script" path="res://moon/Godot/Platformer2D/CharaPlatformer2D.cs" id="1_yprx6"]
-[ext_resource type="Shader" path="res://shader/super_sai.gdshader" id="2_rfa04"]
+[ext_resource type="Material" uid="uid://bf7ck1w6bycuk" path="res://asset/material/super_sai.tres" id="2_4ol7s"]
+[ext_resource type="Shape2D" uid="uid://byt80g1jyj5b1" path="res://asset/shape/enemy_std.tres" id="2_poxla"]
 [ext_resource type="SpriteFrames" uid="uid://dtrcnad3wxebn" path="res://asset/sprite/bonus/fire_flower.aseprite" id="3_32hu8"]
 [ext_resource type="Script" path="res://moon/Godot/Anim/AnimSprite2D.cs" id="4_yvn42"]
 [ext_resource type="PackedScene" uid="uid://dao73w5byhlyt" path="res://asset/node/bonus/item_power_up.tscn" id="5_7qwys"]
 [ext_resource type="Script" path="res://dev/Level/Bonus/Item/ItemSprout.cs" id="6_cr6jb"]
 [ext_resource type="Script" path="res://moon/Component/ViewDestroyer.cs" id="7_7c4y8"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ggqvo"]
-size = Vector2(30, 30)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_2vi8v"]
-shader = ExtResource("2_rfa04")
-shader_parameter/yuv_threshold = Vector3(0.188, 0.027, 0.024)
-shader_parameter/alpha_threshold = 0.2
 
 [node name="FireFlower" type="CharacterBody2D"]
 z_index = 1
@@ -23,10 +16,10 @@ script = ExtResource("1_yprx6")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 1)
-shape = SubResource("RectangleShape2D_ggqvo")
+shape = ExtResource("2_poxla")
 
 [node name="AnimSprite2D" type="AnimatedSprite2D" parent="."]
-material = SubResource("ShaderMaterial_2vi8v")
+material = ExtResource("2_4ol7s")
 position = Vector2(0, 1)
 sprite_frames = ExtResource("3_32hu8")
 animation = &"Default"

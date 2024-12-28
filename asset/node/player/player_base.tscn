@@ -1,7 +1,6 @@
-[gd_scene load_steps=31 format=3 uid="uid://y2i7o7naha3f"]
+[gd_scene load_steps=30 format=3 uid="uid://y2i7o7naha3f"]
 
 [ext_resource type="Script" path="res://moon/Godot/Platformer2D/CharaPlatformer2D.cs" id="1_q14k0"]
-[ext_resource type="Shader" path="res://shader/super_sai.gdshader" id="2_6bm1o"]
 [ext_resource type="SpriteFrames" uid="uid://c23quybvb4ic" path="res://asset/sprite/player/mario/mario_small.aseprite" id="2_nc2t5"]
 [ext_resource type="Script" path="res://dev/Level/Player/Anim/PlayerAnim.cs" id="2_xjjnt"]
 [ext_resource type="AudioStream" uid="uid://cqqdxadpnvbj3" path="res://asset/audio/sound/player/jump.wav" id="5_1v03a"]
@@ -24,20 +23,12 @@
 [ext_resource type="Script" path="res://dev/Level/Player/Interact/PlayerStar.cs" id="14_kdt0w"]
 [ext_resource type="Script" path="res://dev/Level/Player/Interact/PlayerHurt.cs" id="16_fgwku"]
 [ext_resource type="Script" path="res://dev/Level/Player/Interact/PlayerGetItem.cs" id="16_g1wcc"]
+[ext_resource type="Shape2D" uid="uid://43dgn3t71yte" path="res://asset/shape/player_small.tres" id="20_jltqm"]
+[ext_resource type="Shape2D" uid="uid://dt50e00cf3j5x" path="res://asset/shape/player_super.tres" id="21_glsic"]
 [ext_resource type="SpriteFrames" uid="uid://bgjpetcerduoj" path="res://asset/sprite/player/mario/mario_transform.aseprite" id="21_q4t6o"]
 [ext_resource type="Script" path="res://moon/Component/MarkerFlipSync.cs" id="21_sxdg3"]
 [ext_resource type="Script" path="res://dev/Level/Player/Anim/PlayerTransform.cs" id="22_ajnrh"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_d76tl"]
-size = Vector2(19, 26)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_bflmy"]
-size = Vector2(19, 52)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_3m8al"]
-shader = ExtResource("2_6bm1o")
-shader_parameter/yuv_threshold = Vector3(0.188, 0.027, 0.024)
-shader_parameter/alpha_threshold = 0.2
+[ext_resource type="Material" uid="uid://bf7ck1w6bycuk" path="res://asset/material/super_sai.tres" id="23_kubls"]
 
 [node name="PlayerBase" type="CharacterBody2D"]
 z_index = 5
@@ -127,11 +118,11 @@ State = 2
 Ref = NodePath("../../Ref")
 
 [node name="CollisionShapeSmall" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_d76tl")
+shape = ExtResource("20_jltqm")
 
 [node name="CollisionShapeSuper" type="CollisionShape2D" parent="."]
 position = Vector2(0, -13)
-shape = SubResource("RectangleShape2D_bflmy")
+shape = ExtResource("21_glsic")
 disabled = true
 
 [node name="Anim" type="Node2D" parent="." node_paths=PackedStringArray("Ref")]
@@ -140,19 +131,19 @@ Ref = NodePath("../Ref")
 Autoplay = "Idle"
 
 [node name="Small" type="AnimatedSprite2D" parent="Anim"]
-material = SubResource("ShaderMaterial_3m8al")
+material = ExtResource("23_kubls")
 position = Vector2(0, -1)
 sprite_frames = ExtResource("2_nc2t5")
 animation = &"Idle"
 
 [node name="Super" type="AnimatedSprite2D" parent="Anim"]
-material = SubResource("ShaderMaterial_3m8al")
+material = ExtResource("23_kubls")
 position = Vector2(0, -17)
 sprite_frames = ExtResource("5_k34yg")
 animation = &"Idle"
 
 [node name="Fire" type="AnimatedSprite2D" parent="Anim"]
-material = SubResource("ShaderMaterial_3m8al")
+material = ExtResource("23_kubls")
 position = Vector2(0, -17)
 sprite_frames = ExtResource("6_y03an")
 animation = &"Idle"
