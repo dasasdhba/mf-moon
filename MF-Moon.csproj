@@ -8,5 +8,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="dev\Level\Bonus\Block\" />
+    <Folder Include="dev\Level\Enemy\Shell\" />
   </ItemGroup>
 </Project>

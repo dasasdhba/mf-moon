@@ -1,0 +1,29 @@
+[gd_scene load_steps=6 format=3 uid="uid://dgw7shqbyrj2q"]
+
+[ext_resource type="Script" path="res://dev/Level/UI/Effect/LifeEffect.cs" id="1_eq2cr"]
+[ext_resource type="FontFile" uid="uid://dwlu71bkjj8n1" path="res://asset/font/life.tres" id="2_akt0b"]
+[ext_resource type="Script" path="res://dev/Level/UI/Effect/life_label.gd" id="3_o2fh4"]
+[ext_resource type="Script" path="res://dev/Level/UI/Effect/score_movement.gd" id="4_t7i6f"]
+[ext_resource type="AudioStream" uid="uid://dh2m18rutajn4" path="res://asset/audio/sound/effect/life.wav" id="5_yjakg"]
+
+[node name="LifeEffect" type="Node2D"]
+z_index = 101
+script = ExtResource("1_eq2cr")
+
+[node name="Label" type="Label" parent="."]
+offset_left = -128.0
+offset_top = -16.0
+offset_right = 128.0
+offset_bottom = 16.0
+theme_override_fonts/font = ExtResource("2_akt0b")
+text = "1UP"
+horizontal_alignment = 1
+script = ExtResource("3_o2fh4")
+
+[node name="Movement" type="Node" parent="."]
+script = ExtResource("4_t7i6f")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_yjakg")
+
+[connection signal="ready" from="AudioStreamPlayer" to="AudioStreamPlayer" method="play"]

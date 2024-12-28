@@ -45,9 +45,9 @@ public partial class PlayerStomp : Node
             if (e.Disabled) continue;
             
             var star = Ref.Star.IsInStar();
-            if (star && EnemyAttacked.HasEnemyAttacked(e))
+            if (star && EnemyAttacked.HasEnemyAttacked(e.Body))
             {
-                var atk = EnemyAttacked.GetEnemyAttacked(e);
+                var atk = EnemyAttacked.GetEnemyAttacked(e.Body);
                 if (atk.GetSettings(EnemyAttacked.AttackType.Star)
                     == EnemyAttacked.RespondType.Valid)
                 {

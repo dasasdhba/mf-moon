@@ -1,0 +1,51 @@
+[gd_scene load_steps=10 format=3 uid="uid://wmku2phnq8na"]
+
+[ext_resource type="Script" path="res://moon/Godot/Platformer2D/CharaPlatformer2D.cs" id="1_3w2cc"]
+[ext_resource type="Shape2D" uid="uid://byt80g1jyj5b1" path="res://asset/shape/enemy_std.tres" id="2_rcgl6"]
+[ext_resource type="SpriteFrames" uid="uid://bpjujtjedq0hq" path="res://asset/sprite/bonus/star.aseprite" id="3_uu7fx"]
+[ext_resource type="Script" path="res://moon/Godot/Anim/AnimSprite2D.cs" id="4_u2jun"]
+[ext_resource type="Script" path="res://moon/Godot/Platformer2D/PlatformerMove2D.cs" id="5_pyr3t"]
+[ext_resource type="Script" path="res://moon/Component/Jumper.cs" id="6_kg00x"]
+[ext_resource type="Script" path="res://dev/Level/Bonus/Item/ItemStar.cs" id="6_m8otw"]
+[ext_resource type="Script" path="res://dev/Level/Bonus/Item/ItemSprout.cs" id="8_sur1l"]
+[ext_resource type="Script" path="res://moon/Component/ViewDestroyer.cs" id="9_vcj2q"]
+
+[node name="Star" type="CharacterBody2D"]
+z_index = 1
+collision_mask = 2684354560
+script = ExtResource("1_3w2cc")
+GravityAccSpeed = 500.0
+GravityDecSpeed = 500.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 1)
+shape = ExtResource("2_rcgl6")
+
+[node name="AnimSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, 1)
+sprite_frames = ExtResource("3_uu7fx")
+animation = &"Default"
+script = ExtResource("4_u2jun")
+
+[node name="PlatformerMove2D" type="Node" parent="." node_paths=PackedStringArray("Platformer")]
+script = ExtResource("5_pyr3t")
+Platformer = NodePath("..")
+Speed = 100.0
+
+[node name="Jumper" type="Node" parent="." node_paths=PackedStringArray("Platformer")]
+script = ExtResource("6_kg00x")
+Platformer = NodePath("..")
+Speed = 250.0
+
+[node name="ItemStar" type="Node" parent="." node_paths=PackedStringArray("Body")]
+script = ExtResource("6_m8otw")
+Body = NodePath("..")
+
+[node name="ItemSprout" type="Node" parent="." node_paths=PackedStringArray("Body")]
+script = ExtResource("8_sur1l")
+Body = NodePath("..")
+
+[node name="ViewDestroyer" type="Node" parent="." node_paths=PackedStringArray("MonitorNode")]
+script = ExtResource("9_vcj2q")
+MonitorNode = NodePath("..")
+Area = 1

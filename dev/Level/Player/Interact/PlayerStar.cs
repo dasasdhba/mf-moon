@@ -1,8 +1,9 @@
+using Component;
 using Godot;
 
 namespace Level;
 
-public partial class PlayerStar : Attacker
+public partial class PlayerStar : ComboAttack
 {
     [ExportCategory("PlayerStar")]
     [Export]
@@ -42,18 +43,15 @@ public partial class PlayerStar : Attacker
             {
                 EmitSignal(SignalName.RunningOut);
             }
+
+            if (StarTimer <= 0d)
+            {
+                Combo = 0;
+            }
         }
         
         if (!IsInStar()) return;
         
         TryAttack();
-    }
-
-    public PlayerStar() : base()
-    {
-        SignalAttacked += (enemy, respond) =>
-        {
-            // TODO: cast score and life
-        };
     }
 }

@@ -1,0 +1,45 @@
+[gd_scene load_steps=10 format=3 uid="uid://bt4s8aedjqy53"]
+
+[ext_resource type="Script" path="res://moon/Godot/Platformer2D/CharaPlatformer2D.cs" id="1_0yp5i"]
+[ext_resource type="Shape2D" uid="uid://byt80g1jyj5b1" path="res://asset/shape/enemy_std.tres" id="2_gajhe"]
+[ext_resource type="Material" uid="uid://bf7ck1w6bycuk" path="res://asset/material/super_sai.tres" id="3_gm3ow"]
+[ext_resource type="Texture2D" uid="uid://cuk6ymc3cp1ah" path="res://asset/sprite/bonus/mushroom_green.png" id="4_obmw3"]
+[ext_resource type="Script" path="res://moon/Godot/Platformer2D/PlatformerMove2D.cs" id="5_pyxok"]
+[ext_resource type="Script" path="res://dev/Level/Bonus/Item/ItemLife.cs" id="6_blugr"]
+[ext_resource type="Script" path="res://dev/Level/Bonus/Item/ItemSprout.cs" id="7_l1bby"]
+[ext_resource type="PackedScene" uid="uid://dgw7shqbyrj2q" path="res://asset/node/ui/effect/life_effect.tscn" id="7_q7n76"]
+[ext_resource type="Script" path="res://moon/Component/ViewDestroyer.cs" id="8_ffvk6"]
+
+[node name="MushroomGreen" type="CharacterBody2D"]
+z_index = 1
+collision_mask = 2684354560
+script = ExtResource("1_0yp5i")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 1)
+shape = ExtResource("2_gajhe")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = ExtResource("3_gm3ow")
+position = Vector2(0, 1)
+texture = ExtResource("4_obmw3")
+
+[node name="PlatformerMove2D" type="Node" parent="." node_paths=PackedStringArray("Platformer")]
+script = ExtResource("5_pyxok")
+Platformer = NodePath("..")
+Speed = 100.0
+
+[node name="ItemLife" type="Node" parent="." node_paths=PackedStringArray("Body")]
+script = ExtResource("6_blugr")
+LifeScene = ExtResource("7_q7n76")
+Body = NodePath("..")
+
+[node name="ItemSprout" type="Node" parent="." node_paths=PackedStringArray("Body")]
+script = ExtResource("7_l1bby")
+Body = NodePath("..")
+Speed = 75.0
+
+[node name="ViewDestroyer" type="Node" parent="." node_paths=PackedStringArray("MonitorNode")]
+script = ExtResource("8_ffvk6")
+MonitorNode = NodePath("..")
+Area = 1
