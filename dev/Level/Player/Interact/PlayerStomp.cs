@@ -33,7 +33,7 @@ public partial class PlayerStomp : Node
 
     protected void StompProcess(double delta)
     {
-        if (Ref.StompControl.IsDisabled()) return;
+        if (Ref.InteractionControl.IsDisabled()) return;
     
         foreach (var result in Overlap.GetOverlappingObjects(
                      r => EnemyRef.HasEnemyRef(r.Collider),
@@ -43,6 +43,17 @@ public partial class PlayerStomp : Node
         {
             var e = EnemyRef.GetEnemyRef(result.Collider);
             if (e.Disabled) continue;
+            
+            var star = Ref.Star.IsInStar();
+            if (star && EnemyAttacked.HasEnemyAttacked(e))
+            {
+                var atk = EnemyAttacked.GetEnemyAttacked(e);
+                if (atk.GetSettings(EnemyAttacked.AttackType.Star)
+                    == EnemyAttacked.RespondType.Valid)
+                {
+                    continue;
+                }
+            }
             
             // test delay, this approach could make sure the list is safe
             
@@ -68,7 +79,10 @@ public partial class PlayerStomp : Node
 
                 if (e.Hurt)
                 {
-                    // TODO: cast player hurt
+                    if (Ref.Hurt.TryHurt(e))
+                    {
+                        e.EmitSignal(EnemyRef.SignalName.PlayerHurt, Ref);
+                    }
                 }
             }
         }

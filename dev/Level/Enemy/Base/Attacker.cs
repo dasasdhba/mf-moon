@@ -34,27 +34,6 @@ public partial class Attacker : Node
         return res;
     }
     
-    protected OverlapSync2D Overlap { get; set; }
-    
-    public Attacker() : base()
-    {
-        TreeEntered += () =>
-        {
-            if (Body != null)
-            {
-                Overlap = OverlapSync2D.CreateFrom(Body);
-                Overlap.CollisionMask = 1;
-                
-                this.AddPhysicsProcess(() =>
-                {
-                    if (Disabled) return;
-
-                    TryAttack();
-                });
-            }
-        };
-    }
-    
     public void TryAttack()
     {
         foreach (var result in Overlap.GetOverlappingObjects(
@@ -66,5 +45,28 @@ public partial class Attacker : Node
             var enemy = EnemyAttacked.GetEnemyAttacked(result.Collider);
             Attack(enemy);
         }
+    }
+    
+    protected OverlapSync2D Overlap { get; set; }
+    
+    public Attacker() : base()
+    {
+        TreeEntered += () =>
+        {
+            if (Body != null)
+            {
+                Overlap = OverlapSync2D.CreateFrom(Body);
+                Overlap.CollisionMask = 1;
+                
+                this.AddPhysicsProcess(AttackProcess);
+            }
+        };
+    }
+
+    protected virtual void AttackProcess(double delta)
+    {
+        if (Disabled) return;
+        
+        TryAttack();
     }
 }

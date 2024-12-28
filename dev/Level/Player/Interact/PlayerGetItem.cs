@@ -18,7 +18,7 @@ public partial class PlayerGetItem : Node
 
     public override void _PhysicsProcess(double delta)
     {
-        if (Ref.ItemControl.IsDisabled()) return;
+        if (Ref.InteractionControl.IsDisabled()) return;
 
         foreach (var result in Overlap.GetOverlappingObjects(
                      r => ItemRef.HasItemRef(r.Collider),

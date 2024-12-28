@@ -28,6 +28,12 @@ public partial class PlayerRef : Node
     [Export]
     public PlayerShape Shape { get ;set; }
     
+    [Export]
+    public PlayerHurt Hurt { get ;set; }
+    
+    [Export]
+    public PlayerStar Star { get ;set; }
+    
     // multiplayer is not planned
     // static instance access can be very convenient in this case
 
@@ -61,8 +67,7 @@ public partial class PlayerRef : Node
     private Inputer RealInput;
     public DisableList InputControl { get; set; }
     public DisableList MovementControl { get ;set; }
-    public DisableList StompControl { get ;set; } = new();
-    public DisableList ItemControl { get ;set; } = new();
+    public DisableList InteractionControl { get ;set; } = new();
     
     public void ClearSpeed()
     {

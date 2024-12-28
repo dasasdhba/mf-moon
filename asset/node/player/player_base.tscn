@@ -1,26 +1,32 @@
-[gd_scene load_steps=25 format=3 uid="uid://y2i7o7naha3f"]
+[gd_scene load_steps=31 format=3 uid="uid://y2i7o7naha3f"]
 
 [ext_resource type="Script" path="res://moon/Godot/Platformer2D/CharaPlatformer2D.cs" id="1_q14k0"]
 [ext_resource type="Shader" path="res://shader/super_sai.gdshader" id="2_6bm1o"]
 [ext_resource type="SpriteFrames" uid="uid://c23quybvb4ic" path="res://asset/sprite/player/mario/mario_small.aseprite" id="2_nc2t5"]
-[ext_resource type="Script" path="res://dev/Level/Player/PlayerAnim.cs" id="2_xjjnt"]
+[ext_resource type="Script" path="res://dev/Level/Player/Anim/PlayerAnim.cs" id="2_xjjnt"]
 [ext_resource type="AudioStream" uid="uid://cqqdxadpnvbj3" path="res://asset/audio/sound/player/jump.wav" id="5_1v03a"]
 [ext_resource type="SpriteFrames" uid="uid://jfumu32dq5f" path="res://asset/sprite/player/mario/mario_super.aseprite" id="5_k34yg"]
 [ext_resource type="AudioStream" uid="uid://27e4e5yuxyfd" path="res://asset/audio/sound/player/fireball.wav" id="5_mfrig"]
 [ext_resource type="Script" path="res://dev/Level/Player/PlayerRef.cs" id="5_phm8n"]
 [ext_resource type="AudioStream" uid="uid://dwtc2o2kwbxby" path="res://asset/audio/sound/player/swim.wav" id="6_bu04n"]
 [ext_resource type="AudioStream" uid="uid://b1evp7jstbh4w" path="res://asset/audio/sound/player/stomp.wav" id="6_laxqb"]
+[ext_resource type="AudioStream" uid="uid://v7htboqrx7kv" path="res://asset/audio/sound/player/power_up.wav" id="6_qv6nd"]
 [ext_resource type="Script" path="res://moon/Godot/Input/InputReal.cs" id="6_vrn4i"]
 [ext_resource type="SpriteFrames" uid="uid://bx0oiqk8jtnxx" path="res://asset/sprite/player/mario/mario_fire.aseprite" id="6_y03an"]
-[ext_resource type="Script" path="res://dev/Level/Player/PlayerWalk.cs" id="7_v7v88"]
-[ext_resource type="Script" path="res://dev/Level/Player/PlayerJump.cs" id="8_7e70i"]
+[ext_resource type="AudioStream" uid="uid://dck2vmwfy4q8v" path="res://asset/audio/sound/player/power_down.wav" id="7_5k57b"]
+[ext_resource type="Script" path="res://dev/Level/Player/Movement/PlayerWalk.cs" id="7_v7v88"]
+[ext_resource type="Script" path="res://dev/Level/Player/Movement/PlayerJump.cs" id="8_7e70i"]
 [ext_resource type="Script" path="res://dev/Level/Player/PlayerInfo.cs" id="9_kbkit"]
-[ext_resource type="Script" path="res://dev/Level/Player/PlayerStomp.cs" id="11_4qdb6"]
-[ext_resource type="Script" path="res://dev/Level/Player/PlayerShape.cs" id="13_v4kbb"]
+[ext_resource type="Script" path="res://dev/Level/Player/Interact/PlayerStomp.cs" id="11_4qdb6"]
+[ext_resource type="Script" path="res://dev/Level/Player/Movement/PlayerShape.cs" id="13_v4kbb"]
 [ext_resource type="Script" path="res://dev/Level/Player/Attack/PlayerProjectile.cs" id="13_y4eu6"]
 [ext_resource type="PackedScene" uid="uid://bna8f8bh6ur2o" path="res://asset/node/player/fireball_player.tscn" id="14_88ot6"]
-[ext_resource type="Script" path="res://dev/Level/Player/PlayerGetItem.cs" id="16_g1wcc"]
+[ext_resource type="Script" path="res://dev/Level/Player/Interact/PlayerStar.cs" id="14_kdt0w"]
+[ext_resource type="Script" path="res://dev/Level/Player/Interact/PlayerHurt.cs" id="16_fgwku"]
+[ext_resource type="Script" path="res://dev/Level/Player/Interact/PlayerGetItem.cs" id="16_g1wcc"]
+[ext_resource type="SpriteFrames" uid="uid://bgjpetcerduoj" path="res://asset/sprite/player/mario/mario_transform.aseprite" id="21_q4t6o"]
 [ext_resource type="Script" path="res://moon/Component/MarkerFlipSync.cs" id="21_sxdg3"]
+[ext_resource type="Script" path="res://dev/Level/Player/Anim/PlayerTransform.cs" id="22_ajnrh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_d76tl"]
 size = Vector2(19, 26)
@@ -56,10 +62,16 @@ stream = ExtResource("6_bu04n")
 [node name="Fireball" type="AudioStreamPlayer" parent="Sound"]
 stream = ExtResource("5_mfrig")
 
+[node name="PowerUp" type="AudioStreamPlayer" parent="Sound"]
+stream = ExtResource("6_qv6nd")
+
+[node name="PowerDown" type="AudioStreamPlayer" parent="Sound"]
+stream = ExtResource("7_5k57b")
+
 [node name="Info" type="Node" parent="."]
 script = ExtResource("9_kbkit")
 
-[node name="Ref" type="Node" parent="." node_paths=PackedStringArray("Body", "Input", "Walk", "Jump", "Anim", "Shape")]
+[node name="Ref" type="Node" parent="." node_paths=PackedStringArray("Body", "Input", "Walk", "Jump", "Anim", "Shape", "Hurt", "Star")]
 script = ExtResource("5_phm8n")
 Body = NodePath("..")
 Input = NodePath("../InputReal")
@@ -67,6 +79,8 @@ Walk = NodePath("../Walk")
 Jump = NodePath("../Jump")
 Anim = NodePath("../Anim")
 Shape = NodePath("../Shape")
+Hurt = NodePath("../Hurt")
+Star = NodePath("../Star")
 
 [node name="InputReal" type="Node" parent="."]
 script = ExtResource("6_vrn4i")
@@ -79,19 +93,29 @@ Ref = NodePath("../Ref")
 script = ExtResource("8_7e70i")
 Ref = NodePath("../Ref")
 
-[node name="ItemGet" type="Node" parent="." node_paths=PackedStringArray("Ref")]
-script = ExtResource("16_g1wcc")
-Ref = NodePath("../Ref")
-
-[node name="Stomp" type="Node" parent="." node_paths=PackedStringArray("Ref")]
-script = ExtResource("11_4qdb6")
-Ref = NodePath("../Ref")
-
 [node name="Shape" type="Node" parent="." node_paths=PackedStringArray("Ref", "SmallShape", "SuperShape")]
 script = ExtResource("13_v4kbb")
 Ref = NodePath("../Ref")
 SmallShape = NodePath("../CollisionShapeSmall")
 SuperShape = NodePath("../CollisionShapeSuper")
+
+[node name="ItemGet" type="Node" parent="." node_paths=PackedStringArray("Ref")]
+script = ExtResource("16_g1wcc")
+Ref = NodePath("../Ref")
+
+[node name="Star" type="Node" parent="." node_paths=PackedStringArray("Ref", "Body")]
+script = ExtResource("14_kdt0w")
+Ref = NodePath("../Ref")
+Body = NodePath("..")
+Type = 5
+
+[node name="Stomp" type="Node" parent="." node_paths=PackedStringArray("Ref")]
+script = ExtResource("11_4qdb6")
+Ref = NodePath("../Ref")
+
+[node name="Hurt" type="Node" parent="." node_paths=PackedStringArray("Ref")]
+script = ExtResource("16_fgwku")
+Ref = NodePath("../Ref")
 
 [node name="Attack" type="Node" parent="."]
 
@@ -133,6 +157,14 @@ position = Vector2(0, -17)
 sprite_frames = ExtResource("6_y03an")
 animation = &"Idle"
 
+[node name="Transform" type="AnimatedSprite2D" parent="." node_paths=PackedStringArray("Ref")]
+visible = false
+position = Vector2(0, -18)
+sprite_frames = ExtResource("21_q4t6o")
+animation = &"Small"
+script = ExtResource("22_ajnrh")
+Ref = NodePath("../Ref")
+
 [node name="FirePoint" type="Marker2D" parent="." node_paths=PackedStringArray("AnimNode")]
 position = Vector2(0, -14)
 script = ExtResource("21_sxdg3")
@@ -143,3 +175,5 @@ AnimNode = NodePath("../Anim")
 [connection signal="Swum" from="Jump" to="Sound/Swim" method="play"]
 [connection signal="Stomped" from="Stomp" to="Sound/Stomp" method="play"]
 [connection signal="Fired" from="Attack/Fireball" to="Sound/Fireball" method="play" unbinds=1]
+[connection signal="PowerDown" from="Transform" to="Sound/PowerDown" method="play"]
+[connection signal="PowerUp" from="Transform" to="Sound/PowerUp" method="play"]

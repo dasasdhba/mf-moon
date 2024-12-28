@@ -1,6 +1,8 @@
 using System;
+using Component;
 using Global;
 using Godot;
+using GodotTask;
 using Utils;
 
 namespace Level;
@@ -22,7 +24,9 @@ public partial class PlayerAnim : AnimGroup2D
     public PlayerRef Ref { get ;set; }
 
     public override void _EnterTree()
-    {
+    {    
+        // swim
+        
         Ref.Jump.SignalSwum += () => Play("Swim");
         Ref.Jump.SignalJumpedOutWater += () => Play("Swim");
         SignalAnimationFinished += () =>
@@ -33,14 +37,36 @@ public partial class PlayerAnim : AnimGroup2D
             }
         };
         
+        Ref.Hurt.SignalPowerDown += () => PlayHurt().Forget();
+        
         CurrentSprite = Globalvar.Player.State.ToString();
         
         this.AddPhysicsProcess(Process);
     }
     
+    private double HurtFlashInterval = 0.03d;
+    private float HurtAlpha = 0f;
+    public async GDTaskVoid PlayHurt()
+    {
+        var timer = new STimer(HurtFlashInterval);
+        var flash = false;
+        await Async.DelegateProcess(this, delta =>
+        {
+            if (timer.Update(delta))
+            {
+                Ref.Body.Modulate = Ref.Body.Modulate with { A = flash ? HurtAlpha : 1f };
+                flash = !flash;
+            }
+            return !Ref.Hurt.IsInHurt();
+        });
+        
+        Ref.Body.Modulate = Ref.Body.Modulate with { A = 1f };
+    }
+    
+    // launch animation is connected by PlayerProjectile
+    
     private const double LaunchTime = 0.05d;
     private double LaunchTimer = 0d;
-    
     public void PlayLaunch() => LaunchTimer = LaunchTime;
 
     protected void Process(double delta)
