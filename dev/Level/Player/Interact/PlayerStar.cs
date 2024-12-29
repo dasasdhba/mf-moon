@@ -20,6 +20,9 @@ public partial class PlayerStar : ComboAttack
     public delegate void StartedEventHandler();
     
     [Signal]
+    public delegate void EndedEventHandler();
+    
+    [Signal]
     public delegate void RunningOutEventHandler();
     
     private double StarTimer = 0d;
@@ -47,6 +50,7 @@ public partial class PlayerStar : ComboAttack
             if (StarTimer <= 0d)
             {
                 Combo = 0;
+                EmitSignal(SignalName.Ended);
             }
         }
         

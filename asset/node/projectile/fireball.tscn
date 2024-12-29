@@ -10,7 +10,7 @@
 [ext_resource type="Script" path="res://moon/Component/Jumper.cs" id="7_l88b3"]
 [ext_resource type="Script" path="res://moon/Component/Node2DCaster.cs" id="8_u1ks0"]
 [ext_resource type="PackedScene" uid="uid://d3yyy8breqnwh" path="res://asset/node/effect/boom.tscn" id="9_vwf58"]
-[ext_resource type="Script" path="res://dev/Level/Projectile/FireballExplosion.cs" id="10_bijwu"]
+[ext_resource type="Script" path="res://dev/Level/Misc/FireballExplosion.cs" id="10_bijwu"]
 [ext_resource type="Script" path="res://moon/Godot/Audio/AudioOneshotPlayer.cs" id="11_iyooy"]
 [ext_resource type="AudioStream" uid="uid://d0xexhk6ssh0p" path="res://asset/audio/sound/effect/fireball_hit.wav" id="11_u4227"]
 
@@ -56,10 +56,10 @@ script = ExtResource("8_u1ks0")
 Root = NodePath("..")
 Node2DScene = ExtResource("9_vwf58")
 
-[node name="Explosion" type="Node" parent="." node_paths=PackedStringArray("Fireball", "Boom", "ExplosionSound")]
+[node name="Explosion" type="Node" parent="." node_paths=PackedStringArray("Root", "BoomCaster", "ExplosionSound")]
 script = ExtResource("10_bijwu")
-Fireball = NodePath("..")
-Boom = NodePath("../Boom")
+Root = NodePath("..")
+BoomCaster = NodePath("../Boom")
 ExplosionSound = NodePath("../ExplodeSound")
 
 [node name="ExplodeSound" type="AudioStreamPlayer" parent="."]

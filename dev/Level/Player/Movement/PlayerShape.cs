@@ -27,11 +27,13 @@ public partial class PlayerShape : Node
     {
         StuckDetect().Forget();
     }
+    
+    public bool IsSmall() => Globalvar.Player.State == Globalvar.PlayerState.Small
+                             || Ref.Walk.IsCrouching();
 
     public override void _PhysicsProcess(double delta)
     {
-        var isSmall = Globalvar.Player.State == Globalvar.PlayerState.Small
-                      || Ref.Walk.IsCrouching();
+        var isSmall = IsSmall();
 
         SmallShape.SetDeferred(CollisionShape2D.PropertyName.Disabled, !isSmall);
         SuperShape.SetDeferred(CollisionShape2D.PropertyName.Disabled, isSmall);

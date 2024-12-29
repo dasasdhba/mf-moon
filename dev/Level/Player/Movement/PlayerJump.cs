@@ -58,7 +58,7 @@ public partial class PlayerJump : Node
         
         // jump and swim
 
-        if (input.IsKeyPressed("Jump", true))
+        if (!walk.IsCrouching() && input.IsKeyPressed("Jump", true))
         {
             if (!body.IsInWater())
             {
