@@ -11,6 +11,7 @@
 * 5: Mario
 * 10: Projectile(Fileball, Beet, Hammer, etc.)
 * 15: Boom
+* 20: Coin Effect
 * 100: Score Effect
 * 101: Life Effect
 

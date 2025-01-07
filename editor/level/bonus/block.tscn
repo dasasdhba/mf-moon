@@ -1,0 +1,50 @@
+[gd_scene load_steps=11 format=3 uid="uid://j75wrg17i0d1"]
+
+[ext_resource type="Script" path="res://dev/Level/Effect/BumpAnim.cs" id="1_4pnjo"]
+[ext_resource type="Script" path="res://moon/Godot/Anim/AnimSprite2D.cs" id="1_c1rup"]
+[ext_resource type="Material" uid="uid://bf7ck1w6bycuk" path="res://asset/material/super_sai.tres" id="1_disn2"]
+[ext_resource type="SpriteFrames" uid="uid://dolduh6hlr5fy" path="res://asset/sprite/bonus/block.aseprite" id="2_ciocr"]
+[ext_resource type="Shape2D" uid="uid://bwf7jxqmmanyf" path="res://asset/shape/block.tres" id="2_gqg0s"]
+[ext_resource type="Texture2D" uid="uid://mab7yc0jf322" path="res://asset/sprite/bonus/block_bump.png" id="4_dkjpn"]
+[ext_resource type="Script" path="res://dev/Level/Bonus/Block/BlockItem.cs" id="6_xl3d3"]
+[ext_resource type="PackedScene" uid="uid://blrj3t3awvwde" path="res://editor/level/bonus/mushroom_red.tscn" id="7_ow3pb"]
+[ext_resource type="PackedScene" uid="uid://cncoljw8bg03p" path="res://asset/node/bonus/coin_effect.tscn" id="9_3pi2a"]
+[ext_resource type="AudioStream" uid="uid://byhb8f5i43f5w" path="res://asset/audio/sound/item/sprout.wav" id="10_u06nm"]
+
+[node name="Block" type="StaticBody2D"]
+z_index = -5
+collision_layer = 2147483649
+collision_mask = 0
+
+[node name="Bump" type="Node2D" parent="."]
+script = ExtResource("1_4pnjo")
+
+[node name="Sprite2D" type="Sprite2D" parent="Bump"]
+visible = false
+material = ExtResource("1_disn2")
+position = Vector2(0, 1)
+texture = ExtResource("4_dkjpn")
+
+[node name="AnimSprite2D" type="AnimatedSprite2D" parent="Bump"]
+material = ExtResource("1_disn2")
+position = Vector2(0, 1)
+sprite_frames = ExtResource("2_ciocr")
+animation = &"Default"
+script = ExtResource("1_c1rup")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = ExtResource("2_gqg0s")
+
+[node name="BlockItem" type="Node" parent="." node_paths=PackedStringArray("Body")]
+script = ExtResource("6_xl3d3")
+MushroomScene = ExtResource("7_ow3pb")
+CoinEffect = ExtResource("9_3pi2a")
+Body = NodePath("..")
+
+[node name="Sprout" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("10_u06nm")
+
+[connection signal="Hit" from="BlockItem" to="Bump" method="Start" unbinds=2]
+[connection signal="Hit" from="BlockItem" to="Bump/Sprite2D" method="show" unbinds=2]
+[connection signal="Hit" from="BlockItem" to="Bump/AnimSprite2D" method="hide" unbinds=2]
+[connection signal="ItemSpawned" from="BlockItem" to="Sprout" method="play" unbinds=1]

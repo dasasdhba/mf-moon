@@ -43,16 +43,7 @@ public partial class PlayerShape : Node
         => Ref.Body.IsOverlapping(delta);
 
     private bool TryPush(Vector2 dir)
-    {
-        if (IsOverlapping(StuckPushDownMargin * dir)) return false;
-
-        while (IsOverlapping())
-        {
-            Ref.Body.GlobalPosition += dir;
-        }
-
-        return true;
-    }
+        => Ref.Body.TryPushOut(StuckPushDownMargin * dir);
 
     private async GDTask StuckDetect()
     {

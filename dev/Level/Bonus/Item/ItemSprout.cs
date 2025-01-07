@@ -53,8 +53,6 @@ public partial class ItemSprout : Node
         if (ItemRef.HasItemRef(Body))
             ItemRef.GetItemRef(Body).Disabled = false;
     }
-    
-    protected virtual bool ShouldSprout() => Body.IsOverlapping();
 
     protected virtual bool SproutProcess(double delta)
     {
@@ -75,9 +73,26 @@ public partial class ItemSprout : Node
         Body.ZIndex = zOrigin;
         RestoreBody();
     }
-    
-    public override void _EnterTree()
+
+    public ItemSprout() : base()
     {
-        Sprout().Forget();
+        TreeEntered += () =>
+        {
+            var p = Body.GetParent();
+            if (BlockRef.HasBlockRef(p))
+            {
+                var block = BlockRef.GetBlockRef(p);
+                if (block is BlockItem bItem)
+                {
+                    if (bItem.TryLoadItem(Body))
+                    {
+                        DisableBody();
+                        return;
+                    }
+                }
+            }
+        
+            Sprout().Forget();
+        };
     }
 }

@@ -2,9 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://gw56u0wtkhwt" path="res://asset/sprite/editor/solid.png" id="1_hxp5f"]
 [ext_resource type="Script" path="res://dev/Editor/mark_node.gd" id="2_n80im"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_4qtw3"]
-size = Vector2(32, 32)
+[ext_resource type="Shape2D" uid="uid://bwf7jxqmmanyf" path="res://asset/shape/block.tres" id="3_0kkn7"]
 
 [node name="Solid" type="StaticBody2D"]
 collision_layer = 2147483648
@@ -17,4 +15,4 @@ texture = ExtResource("1_hxp5f")
 script = ExtResource("2_n80im")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_4qtw3")
+shape = ExtResource("3_0kkn7")

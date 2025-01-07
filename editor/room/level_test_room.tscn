@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=4 uid="uid://dv23hc5jyjdet"]
+[gd_scene load_steps=13 format=4 uid="uid://dv23hc5jyjdet"]
 
 [ext_resource type="TileSet" uid="uid://bveh5l6u2fgow" path="res://asset/tileset/marks_set.tres" id="1_6s1n2"]
 [ext_resource type="PackedScene" uid="uid://y2i7o7naha3f" path="res://asset/node/player/player_base.tscn" id="2_8w4k4"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://bmuuxmcn5gi3l" path="res://editor/level/mark/solid.tscn" id="9_xla6r"]
 [ext_resource type="PackedScene" uid="uid://bt4s8aedjqy53" path="res://editor/level/bonus/mushroom_green.tscn" id="10_47pqs"]
 [ext_resource type="PackedScene" uid="uid://wmku2phnq8na" path="res://editor/level/bonus/star.tscn" id="11_7ohio"]
+[ext_resource type="PackedScene" uid="uid://j75wrg17i0d1" path="res://editor/level/bonus/block.tscn" id="12_bjwv5"]
 
 [node name="LevelTestRoom" type="Node2D"]
 
@@ -110,3 +111,21 @@ position = Vector2(560, 208)
 
 [node name="Star" parent="." instance=ExtResource("11_7ohio")]
 position = Vector2(176, 464)
+
+[node name="Block" parent="." instance=ExtResource("12_bjwv5")]
+position = Vector2(368, 400)
+
+[node name="Block2" parent="." instance=ExtResource("12_bjwv5")]
+position = Vector2(304, 400)
+
+[node name="FireFlower" parent="Block2" instance=ExtResource("8_u0a4x")]
+
+[node name="Block3" parent="." instance=ExtResource("12_bjwv5")]
+position = Vector2(432, 400)
+
+[node name="BlockItem" parent="Block3" index="2"]
+HideAtStart = true
+
+[node name="MushroomGreen" parent="Block3" instance=ExtResource("10_47pqs")]
+
+[editable path="Block3"]

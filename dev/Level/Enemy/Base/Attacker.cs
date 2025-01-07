@@ -18,6 +18,18 @@ public partial class Attacker : Node
     [Export]
     public bool Disabled { get; set; } = false;
     
+    [Export(PropertyHint.Layers2DPhysics)]
+    public uint AttackMask
+    {
+        get => _AttackMask;
+        set
+        {
+            _AttackMask = value;
+            if (Overlap != null) Overlap.CollisionMask = value;
+        }
+    }
+    private uint _AttackMask = 1;
+    
     /// <summary>
     /// Emit if the attack is not ignored.
     /// </summary>
@@ -56,7 +68,7 @@ public partial class Attacker : Node
             if (Body != null)
             {
                 Overlap = OverlapSync2D.CreateFrom(Body);
-                Overlap.CollisionMask = 1;
+                Overlap.CollisionMask = AttackMask;
                 
                 this.AddPhysicsProcess(AttackProcess);
             }

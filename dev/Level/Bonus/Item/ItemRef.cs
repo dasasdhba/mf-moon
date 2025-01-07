@@ -5,6 +5,7 @@ namespace Level;
 
 /// <summary>
 /// Actually, this can be used with any objects which need interact with player.
+/// This will be blocked when player is entering pipe, entering door, etc.
 /// </summary>
 public partial class ItemRef : Node
 {

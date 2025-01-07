@@ -1,5 +1,6 @@
 using Godot;
 using System.Collections.Generic;
+using System.Linq;
 using Utils;
 
 namespace Level;
@@ -106,8 +107,8 @@ public partial class EnemyAttacked : Node
         => Settings[atk] = respond;
         
     public RespondType GetSettings(AttackType atk)
-        => Settings[atk];
-        
+        => Settings.GetValueOrDefault(atk, RespondType.Ignore);
+    
     [Signal]
     public delegate void AttackedEventHandler(int atk);
     

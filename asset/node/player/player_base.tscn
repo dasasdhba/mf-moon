@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=3 uid="uid://y2i7o7naha3f"]
+[gd_scene load_steps=49 format=3 uid="uid://y2i7o7naha3f"]
 
 [ext_resource type="Script" path="res://moon/Godot/Platformer2D/CharaPlatformer2D.cs" id="1_q14k0"]
 [ext_resource type="SpriteFrames" uid="uid://c23quybvb4ic" path="res://asset/sprite/player/mario/mario_small.aseprite" id="2_nc2t5"]
@@ -39,6 +39,7 @@
 [ext_resource type="Script" path="res://dev/Level/Player/Anim/PlayerTransform.cs" id="22_ajnrh"]
 [ext_resource type="AudioStream" uid="uid://b741a60tfmvyi" path="res://asset/audio/sound/effect/combo_7.wav" id="22_p41do"]
 [ext_resource type="Material" uid="uid://bf7ck1w6bycuk" path="res://asset/material/super_sai.tres" id="23_kubls"]
+[ext_resource type="Script" path="res://dev/Level/Player/Interact/PlayerHitBlock.cs" id="30_5lctw"]
 [ext_resource type="Script" path="res://dev/Level/Player/Anim/PlayerStarParticles.cs" id="38_w8hr0"]
 [ext_resource type="Texture2D" uid="uid://6bam5mr2m7g5" path="res://asset/sprite/particle/star_blue.png" id="39_evgga"]
 [ext_resource type="AudioStream" uid="uid://cp2ngnvvygsvp" path="res://asset/audio/sound/player/starman.ogg" id="39_xxr87"]
@@ -147,6 +148,13 @@ stream = ExtResource("22_p41do")
 [node name="Stomp" type="Node" parent="." node_paths=PackedStringArray("Ref")]
 script = ExtResource("11_4qdb6")
 Ref = NodePath("../Ref")
+
+[node name="HitBlock" type="Node" parent="." node_paths=PackedStringArray("Ref", "Body")]
+script = ExtResource("30_5lctw")
+Ref = NodePath("../Ref")
+EnableFall = false
+EnableMove = false
+Body = NodePath("..")
 
 [node name="Hurt" type="Node" parent="." node_paths=PackedStringArray("Ref")]
 script = ExtResource("16_fgwku")

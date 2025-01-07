@@ -12,6 +12,18 @@ public partial class PlayerStomp : Node
     
     [Export]
     public float StompJumpSpeed { get ;set; } = 650f;
+
+    [Export(PropertyHint.Layers2DPhysics)]
+    public uint StompMask
+    {
+        get => _StompMask;
+        set
+        {
+            _StompMask = value;
+            if (Overlap != null) Overlap.CollisionMask = value;
+        }
+    }
+    private uint _StompMask = 1;
     
     [ExportGroup("Dependency")]
     [Export]
@@ -27,7 +39,7 @@ public partial class PlayerStomp : Node
     public override void _EnterTree()
     {
         Overlap = OverlapSync2D.CreateFrom(Ref.Body);
-        Overlap.CollisionMask = 1;
+        Overlap.CollisionMask = StompMask;
         this.AddPhysicsProcess(StompProcess);
     }
 
