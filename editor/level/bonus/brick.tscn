@@ -1,0 +1,60 @@
+[gd_scene load_steps=13 format=3 uid="uid://cxm4a0yvifxnr"]
+
+[ext_resource type="Script" path="res://dev/Level/Effect/BumpAnim.cs" id="1_6dd2y"]
+[ext_resource type="Material" uid="uid://bf7ck1w6bycuk" path="res://asset/material/super_sai.tres" id="2_hny7l"]
+[ext_resource type="Texture2D" uid="uid://do4j6l2jptiv6" path="res://asset/sprite/bonus/brick.png" id="3_vync2"]
+[ext_resource type="Shape2D" uid="uid://bwf7jxqmmanyf" path="res://asset/shape/block.tres" id="4_mntmc"]
+[ext_resource type="Script" path="res://moon/Component/Node2DCaster.cs" id="5_f7fxu"]
+[ext_resource type="PackedScene" uid="uid://fwlfib2fe8m" path="res://asset/node/bonus/bump_attack.tscn" id="6_jy3h8"]
+[ext_resource type="Script" path="res://dev/Level/Bonus/Block/BlockRef.cs" id="7_7wv2v"]
+[ext_resource type="Script" path="res://dev/Level/Effect/FragmentCaster.cs" id="7_ux5vm"]
+[ext_resource type="AudioStream" uid="uid://jcv2sos5hx4" path="res://asset/audio/sound/item/bump.wav" id="8_0mtls"]
+[ext_resource type="PackedScene" uid="uid://drp3w8k7f806n" path="res://asset/node/effect/brick_fragment.tscn" id="8_fc2hv"]
+[ext_resource type="Script" path="res://moon/Godot/Audio/AudioOneshotPlayer.cs" id="9_2wfow"]
+[ext_resource type="AudioStream" uid="uid://crsopyioex8cm" path="res://asset/audio/sound/item/break.wav" id="10_47up2"]
+
+[node name="Brick" type="StaticBody2D"]
+collision_layer = 2147483649
+collision_mask = 0
+
+[node name="Bump" type="Node2D" parent="."]
+script = ExtResource("1_6dd2y")
+
+[node name="Sprite2D" type="Sprite2D" parent="Bump"]
+material = ExtResource("2_hny7l")
+position = Vector2(0, 1)
+texture = ExtResource("3_vync2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = ExtResource("4_mntmc")
+
+[node name="BlockRef" type="Node" parent="." node_paths=PackedStringArray("Body")]
+script = ExtResource("7_7wv2v")
+Body = NodePath("..")
+Hardness = 0
+
+[node name="BumpCaster" type="Node" parent="." node_paths=PackedStringArray("Root")]
+script = ExtResource("5_f7fxu")
+Root = NodePath("..")
+Node2DScene = ExtResource("6_jy3h8")
+Offset = Vector2(0, -19)
+
+[node name="FragmentCaster" type="Node" parent="." node_paths=PackedStringArray("Root")]
+script = ExtResource("7_ux5vm")
+Root = NodePath("..")
+FragmentScene = ExtResource("8_fc2hv")
+
+[node name="BumpSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_0mtls")
+
+[node name="BreakSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("10_47up2")
+script = ExtResource("9_2wfow")
+
+[connection signal="Hit" from="BlockRef" to="." method="queue_free" unbinds=2]
+[connection signal="Hit" from="BlockRef" to="BumpCaster" method="Cast" unbinds=2]
+[connection signal="Hit" from="BlockRef" to="FragmentCaster" method="Cast" unbinds=2]
+[connection signal="Hit" from="BlockRef" to="BreakSound" method="PlayOneshot" unbinds=2]
+[connection signal="QueuedHitFailed" from="BlockRef" to="Bump" method="Start" unbinds=2]
+[connection signal="QueuedHitFailed" from="BlockRef" to="BumpCaster" method="Cast" unbinds=2]
+[connection signal="QueuedHitFailed" from="BlockRef" to="BumpSound" method="play" unbinds=2]

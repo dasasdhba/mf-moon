@@ -1,0 +1,30 @@
+[gd_scene load_steps=6 format=3 uid="uid://drp3w8k7f806n"]
+
+[ext_resource type="Script" path="res://moon/Godot/Platformer2D/CharaPlatformer2D.cs" id="1_3rjat"]
+[ext_resource type="Texture2D" uid="uid://4jxvqi8btqyg" path="res://asset/sprite/effect/brick_fragment.png" id="2_yecis"]
+[ext_resource type="Script" path="res://moon/Component/SpriteDir.cs" id="3_utkkf"]
+[ext_resource type="Script" path="res://moon/Component/Rotator.cs" id="4_iucxu"]
+[ext_resource type="Script" path="res://moon/Component/ViewDestroyer.cs" id="5_66ol2"]
+
+[node name="BrickFragment" type="CharacterBody2D"]
+z_index = -1
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_3rjat")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_yecis")
+
+[node name="SpriteDir" type="Node" parent="." node_paths=PackedStringArray("Root", "Sprite", "Rotator")]
+script = ExtResource("3_utkkf")
+Root = NodePath("..")
+Sprite = NodePath("../Sprite2D")
+Rotator = NodePath("../Rotator")
+
+[node name="Rotator" type="Node" parent="." node_paths=PackedStringArray("RotateNode")]
+script = ExtResource("4_iucxu")
+RotateNode = NodePath("../Sprite2D")
+
+[node name="ViewDestroyer" type="Node" parent="." node_paths=PackedStringArray("MonitorNode")]
+script = ExtResource("5_66ol2")
+MonitorNode = NodePath("..")
