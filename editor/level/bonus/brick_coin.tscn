@@ -1,0 +1,65 @@
+[gd_scene load_steps=13 format=3 uid="uid://ddl08l8236y5m"]
+
+[ext_resource type="Script" path="res://dev/Level/Effect/BumpAnim.cs" id="1_5wugm"]
+[ext_resource type="Material" uid="uid://bf7ck1w6bycuk" path="res://asset/material/super_sai.tres" id="2_se5pi"]
+[ext_resource type="Texture2D" uid="uid://mab7yc0jf322" path="res://asset/sprite/bonus/block_bump.png" id="3_g3xfv"]
+[ext_resource type="Texture2D" uid="uid://do4j6l2jptiv6" path="res://asset/sprite/bonus/brick.png" id="4_1nny1"]
+[ext_resource type="Shape2D" uid="uid://bwf7jxqmmanyf" path="res://asset/shape/block.tres" id="6_cokn0"]
+[ext_resource type="SpriteFrames" uid="uid://blttuwje87372" path="res://asset/sprite/bonus/coin.aseprite" id="6_eebcd"]
+[ext_resource type="Script" path="res://dev/Editor/mark_node.gd" id="7_81rvc"]
+[ext_resource type="Script" path="res://dev/Level/Bonus/Block/BlockItem.cs" id="7_ohwkc"]
+[ext_resource type="PackedScene" uid="uid://cncoljw8bg03p" path="res://asset/node/bonus/coin_effect.tscn" id="9_sbh0n"]
+[ext_resource type="Script" path="res://moon/Component/Node2DCaster.cs" id="10_aaqow"]
+[ext_resource type="Script" path="res://dev/Level/Bonus/Block/BlockCoin.cs" id="10_w23r0"]
+[ext_resource type="PackedScene" uid="uid://fwlfib2fe8m" path="res://asset/node/bonus/bump_attack.tscn" id="11_22lvs"]
+
+[node name="BrickCoin" type="StaticBody2D"]
+z_index = -5
+collision_layer = 2147483649
+collision_mask = 0
+
+[node name="Bump" type="Node2D" parent="."]
+script = ExtResource("1_5wugm")
+
+[node name="Bump" type="Sprite2D" parent="Bump"]
+visible = false
+material = ExtResource("2_se5pi")
+position = Vector2(0, 1)
+texture = ExtResource("3_g3xfv")
+
+[node name="Sprite2D" type="Sprite2D" parent="Bump"]
+material = ExtResource("2_se5pi")
+position = Vector2(0, 1)
+texture = ExtResource("4_1nny1")
+
+[node name="EditorHint" type="AnimatedSprite2D" parent="Bump"]
+scale = Vector2(2, 2)
+sprite_frames = ExtResource("6_eebcd")
+animation = &"Default"
+
+[node name="MarkNode" type="Node" parent="Bump/EditorHint"]
+script = ExtResource("7_81rvc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = ExtResource("6_cokn0")
+
+[node name="BlockItem" type="Node" parent="." node_paths=PackedStringArray("Body")]
+script = ExtResource("7_ohwkc")
+Oneshot = false
+CoinEffect = ExtResource("9_sbh0n")
+Body = NodePath("..")
+
+[node name="CoinTimer" type="Node" parent="." node_paths=PackedStringArray("BlockRef")]
+script = ExtResource("10_w23r0")
+BlockRef = NodePath("../BlockItem")
+
+[node name="BumpCaster" type="Node" parent="." node_paths=PackedStringArray("Root")]
+script = ExtResource("10_aaqow")
+Root = NodePath("..")
+Node2DScene = ExtResource("11_22lvs")
+Offset = Vector2(0, -19)
+
+[connection signal="QueuedHit" from="BlockItem" to="Bump" method="Start" unbinds=2]
+[connection signal="QueuedHit" from="BlockItem" to="BumpCaster" method="Cast" unbinds=2]
+[connection signal="Finished" from="CoinTimer" to="Bump/Bump" method="show"]
+[connection signal="Finished" from="CoinTimer" to="Bump/Sprite2D" method="hide"]

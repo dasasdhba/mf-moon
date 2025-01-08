@@ -15,11 +15,11 @@ public partial class FragmentCaster : Node
     [Export]
     public PackedScene FragmentScene { get ;set; }
     
-    public AsyncLoader<CharaPlatformer2D> FragemntLoader { get ;set; }
+    public AsyncLoader<CharaPlatformer2D> FragmentLoader { get ;set; }
 
     public override void _EnterTree()
     {
-        FragemntLoader = new(this, FragmentScene, 4);
+        FragmentLoader = new(this, FragmentScene, 4);
     }
 
     public void Cast()
@@ -59,7 +59,7 @@ public partial class FragmentCaster : Node
                     break;    
             }
             
-            var fragment = FragemntLoader.Create();
+            var fragment = FragmentLoader.Create();
             fragment.SetGravitySpeed(gravity);
             fragment.SetMoveSpeed(speed);
             fragment.Position = Root.Position + offset;

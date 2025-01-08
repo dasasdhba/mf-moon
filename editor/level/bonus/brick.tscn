@@ -14,6 +14,7 @@
 [ext_resource type="AudioStream" uid="uid://crsopyioex8cm" path="res://asset/audio/sound/item/break.wav" id="10_47up2"]
 
 [node name="Brick" type="StaticBody2D"]
+z_index = -5
 collision_layer = 2147483649
 collision_mask = 0
 

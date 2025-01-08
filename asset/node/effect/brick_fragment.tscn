@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://drp3w8k7f806n"]
+[gd_scene load_steps=7 format=3 uid="uid://drp3w8k7f806n"]
 
 [ext_resource type="Script" path="res://moon/Godot/Platformer2D/CharaPlatformer2D.cs" id="1_3rjat"]
+[ext_resource type="Material" uid="uid://bf7ck1w6bycuk" path="res://asset/material/super_sai.tres" id="2_gl8o1"]
 [ext_resource type="Texture2D" uid="uid://4jxvqi8btqyg" path="res://asset/sprite/effect/brick_fragment.png" id="2_yecis"]
 [ext_resource type="Script" path="res://moon/Component/SpriteDir.cs" id="3_utkkf"]
 [ext_resource type="Script" path="res://moon/Component/Rotator.cs" id="4_iucxu"]
@@ -13,6 +14,7 @@ collision_mask = 0
 script = ExtResource("1_3rjat")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+material = ExtResource("2_gl8o1")
 texture = ExtResource("2_yecis")
 
 [node name="SpriteDir" type="Node" parent="." node_paths=PackedStringArray("Root", "Sprite", "Rotator")]
