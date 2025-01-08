@@ -35,6 +35,12 @@ public partial class Attacker : Node
     /// </summary>
     [Signal]
     public delegate void AttackedEventHandler(EnemyAttacked enemy, int respond);
+    
+    [Signal]
+    public delegate void AttackedValidEventHandler(EnemyAttacked enemy);
+    
+    [Signal]
+    public delegate void AttackedInvalidEventHandler(EnemyAttacked enemy);
 
     public virtual EnemyAttacked.RespondType Attack(EnemyAttacked enemy)
     {
@@ -71,6 +77,18 @@ public partial class Attacker : Node
                 Overlap.CollisionMask = AttackMask;
                 
                 this.AddPhysicsProcess(AttackProcess);
+            }
+        };
+        
+        SignalAttacked += (enemy, respond) =>
+        {
+            if (respond == (int)EnemyAttacked.RespondType.Valid)
+            {
+                EmitSignal(SignalName.AttackedValid, enemy);
+            }
+            else
+            {
+                EmitSignal(SignalName.AttackedInvalid, enemy);
             }
         };
     }

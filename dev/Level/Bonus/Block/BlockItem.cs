@@ -71,7 +71,7 @@ public partial class BlockItem : BlockRef
             else MushroomLoader = new(this, MushroomScene);
         };
         
-        SignalHit += (hit, data) => Activate(data);
+        SignalQueuedHit += (hit, data) => Activate(data);
     }
     
     private bool ShouldCreateMushroom()
@@ -111,7 +111,7 @@ public partial class BlockItem : BlockRef
         
         return item;
     }
-
+    
     public void Activate(RefCounted data)
     {
         if (DefaultLoader != null)

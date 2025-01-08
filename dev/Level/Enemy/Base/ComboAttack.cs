@@ -51,35 +51,35 @@ public partial class ComboAttack : Attacker
         Body.AddSibling(scoreNode);
     }
     
-    protected int Combo { get ;set; } = 0;
+    protected uint Combo { get ;set; } = 0;
+
+    protected void AddCombo()
+    {
+        GetNode<AudioStreamPlayer>("Combo" + (Combo + 1)).Play();
+        
+        if (Combo < 6)
+        {
+            CreateScore(Combo switch
+            {
+                0 => 100,
+                1 => 200,
+                2 => 500,
+                3 => 1000,
+                4 => 2000,
+                5 => 5000,
+                _ => 100
+            });
+            Combo++;
+        }
+        else
+        {
+            CreateLife(1);
+            Combo = 0;
+        }
+    }
 
     public ComboAttack() : base()
     {
-        SignalAttacked += (enemy, respond) =>
-        {
-            if ((EnemyAttacked.RespondType)respond != EnemyAttacked.RespondType.Valid) return;
-            
-            GetNode<AudioStreamPlayer>("Combo" + (Combo + 1)).Play();
-            
-            if (Combo < 6)
-            {
-                CreateScore(Combo switch
-                {
-                    0 => 100,
-                    1 => 200,
-                    2 => 500,
-                    3 => 1000,
-                    4 => 2000,
-                    5 => 5000,
-                    _ => 100
-                });
-                Combo++;
-            }
-            else
-            {
-                CreateLife(1);
-                Combo = 0;
-            }
-        };
+        SignalAttackedValid += (enemy) => AddCombo();
     }
 }

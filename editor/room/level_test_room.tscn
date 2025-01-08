@@ -89,6 +89,9 @@ position = Vector2(752, 496)
 [node name="Goomba2" parent="." instance=ExtResource("4_wt1ux")]
 position = Vector2(672, 496)
 
+[node name="Goomba3" parent="." instance=ExtResource("4_wt1ux")]
+position = Vector2(256, 368)
+
 [node name="MushroomRed" parent="." instance=ExtResource("7_66u64")]
 position = Vector2(656, 288)
 

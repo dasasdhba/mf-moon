@@ -1,11 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://bna8f8bh6ur2o"]
+[gd_scene load_steps=6 format=3 uid="uid://bna8f8bh6ur2o"]
 
 [ext_resource type="PackedScene" uid="uid://dvskw21sdmn4" path="res://asset/node/projectile/fireball.tscn" id="1_wjxgv"]
 [ext_resource type="Script" path="res://moon/Component/ViewDestroyer.cs" id="2_nw7co"]
 [ext_resource type="Script" path="res://dev/Level/Enemy/Base/Attacker.cs" id="3_26k3e"]
 [ext_resource type="AudioStream" uid="uid://clgeos1e5evrk" path="res://asset/audio/sound/effect/combo_1.wav" id="4_2jdrw"]
 [ext_resource type="Script" path="res://moon/Godot/Audio/AudioOneshotPlayer.cs" id="4_633od"]
-[ext_resource type="Script" path="res://dev/Level/Player/Attack/fireball_hit_enemy.gd" id="6_231sv"]
 
 [node name="FireballPlayer" instance=ExtResource("1_wjxgv")]
 
@@ -24,8 +23,5 @@ Type = 2
 stream = ExtResource("4_2jdrw")
 script = ExtResource("4_633od")
 
-[node name="SoundPlay" type="Node" parent="HitSound" index="0"]
-script = ExtResource("6_231sv")
-
-[connection signal="Attacked" from="Attacker" to="HitSound/SoundPlay" method="_on_attacker_attacked"]
 [connection signal="Attacked" from="Attacker" to="Explosion" method="Explode" unbinds=2]
+[connection signal="AttackedValid" from="Attacker" to="HitSound" method="PlayOneshot" unbinds=1]

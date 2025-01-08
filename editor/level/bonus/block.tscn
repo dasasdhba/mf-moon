@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://j75wrg17i0d1"]
+[gd_scene load_steps=13 format=3 uid="uid://j75wrg17i0d1"]
 
 [ext_resource type="Script" path="res://dev/Level/Effect/BumpAnim.cs" id="1_4pnjo"]
 [ext_resource type="Script" path="res://moon/Godot/Anim/AnimSprite2D.cs" id="1_c1rup"]
@@ -9,7 +9,9 @@
 [ext_resource type="Script" path="res://dev/Level/Bonus/Block/BlockItem.cs" id="6_xl3d3"]
 [ext_resource type="PackedScene" uid="uid://blrj3t3awvwde" path="res://editor/level/bonus/mushroom_red.tscn" id="7_ow3pb"]
 [ext_resource type="PackedScene" uid="uid://cncoljw8bg03p" path="res://asset/node/bonus/coin_effect.tscn" id="9_3pi2a"]
+[ext_resource type="Script" path="res://moon/Component/Node2DCaster.cs" id="10_mfv21"]
 [ext_resource type="AudioStream" uid="uid://byhb8f5i43f5w" path="res://asset/audio/sound/item/sprout.wav" id="10_u06nm"]
+[ext_resource type="PackedScene" uid="uid://fwlfib2fe8m" path="res://asset/node/bonus/bump_attack.tscn" id="11_grq5s"]
 
 [node name="Block" type="StaticBody2D"]
 z_index = -5
@@ -41,10 +43,17 @@ MushroomScene = ExtResource("7_ow3pb")
 CoinEffect = ExtResource("9_3pi2a")
 Body = NodePath("..")
 
+[node name="BumpCaster" type="Node" parent="." node_paths=PackedStringArray("Root")]
+script = ExtResource("10_mfv21")
+Root = NodePath("..")
+Node2DScene = ExtResource("11_grq5s")
+Offset = Vector2(0, -19)
+
 [node name="Sprout" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("10_u06nm")
 
-[connection signal="Hit" from="BlockItem" to="Bump" method="Start" unbinds=2]
-[connection signal="Hit" from="BlockItem" to="Bump/Sprite2D" method="show" unbinds=2]
-[connection signal="Hit" from="BlockItem" to="Bump/AnimSprite2D" method="hide" unbinds=2]
 [connection signal="ItemSpawned" from="BlockItem" to="Sprout" method="play" unbinds=1]
+[connection signal="QueuedHit" from="BlockItem" to="Bump" method="Start" unbinds=2]
+[connection signal="QueuedHit" from="BlockItem" to="Bump/Sprite2D" method="show" unbinds=2]
+[connection signal="QueuedHit" from="BlockItem" to="Bump/AnimSprite2D" method="hide" unbinds=2]
+[connection signal="QueuedHit" from="BlockItem" to="BumpCaster" method="Cast" unbinds=2]

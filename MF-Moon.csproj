@@ -8,6 +8,5 @@
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="dev\Level\Enemy\Shell\" />
-    <Folder Include="dev\Level\Misc\" />
   </ItemGroup>
 </Project>

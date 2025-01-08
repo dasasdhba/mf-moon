@@ -1,0 +1,32 @@
+[gd_scene load_steps=6 format=3 uid="uid://fwlfib2fe8m"]
+
+[ext_resource type="Shape2D" uid="uid://bvgy4y6xeaqed" path="res://asset/shape/bump.tres" id="1_1bghe"]
+[ext_resource type="Script" path="res://moon/Godot/UTimer.cs" id="2_uigfe"]
+[ext_resource type="Script" path="res://dev/Level/Misc/BumpAttack.cs" id="3_mq5du"]
+[ext_resource type="Script" path="res://moon/Godot/Audio/AudioOneshotPlayer.cs" id="4_nhxvy"]
+[ext_resource type="AudioStream" uid="uid://clgeos1e5evrk" path="res://asset/audio/sound/effect/combo_1.wav" id="4_ym8e1"]
+
+[node name="BumpAttack" type="StaticBody2D"]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = ExtResource("1_1bghe")
+
+[node name="UTimer" type="Node" parent="."]
+script = ExtResource("2_uigfe")
+Autostart = true
+OneShot = true
+ProcessCallback = 1
+WaitTime = 0.08
+
+[node name="Attack" type="Node" parent="." node_paths=PackedStringArray("Body")]
+script = ExtResource("3_mq5du")
+Body = NodePath("..")
+Type = 6
+
+[node name="HitSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_ym8e1")
+script = ExtResource("4_nhxvy")
+
+[connection signal="Timeout" from="UTimer" to="." method="queue_free"]
+[connection signal="AttackedValid" from="Attack" to="HitSound" method="PlayOneshot" unbinds=1]
