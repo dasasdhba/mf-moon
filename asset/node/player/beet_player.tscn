@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://dvyx0j0c2ihh4"]
+
+[ext_resource type="PackedScene" uid="uid://ccputtp85x884" path="res://asset/node/projectile/beet.tscn" id="1_8kfe7"]
+[ext_resource type="Script" path="res://moon/Component/ViewDestroyer.cs" id="2_4ajyr"]
+[ext_resource type="Script" path="res://dev/Level/Misc/BeetAttack.cs" id="3_3h620"]
+[ext_resource type="AudioStream" uid="uid://clgeos1e5evrk" path="res://asset/audio/sound/effect/combo_1.wav" id="3_wbvj4"]
+
+[node name="BeetPlayer" instance=ExtResource("1_8kfe7")]
+
+[node name="ViewDestroyer" type="Node" parent="." index="6" node_paths=PackedStringArray("MonitorNode")]
+script = ExtResource("2_4ajyr")
+MonitorNode = NodePath("..")
+Mode = 1
+UpRange = -1.0
+
+[node name="Attacker" type="Node" parent="." index="7" node_paths=PackedStringArray("Movement", "Body")]
+script = ExtResource("3_3h620")
+Movement = NodePath("../Movement")
+Body = NodePath("..")
+Type = 3
+
+[node name="HitSound" type="AudioStreamPlayer" parent="." index="8"]
+stream = ExtResource("3_wbvj4")
+
+[connection signal="AttackedValid" from="Attacker" to="HitSound" method="play" unbinds=1]

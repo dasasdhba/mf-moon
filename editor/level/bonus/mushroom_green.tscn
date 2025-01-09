@@ -15,14 +15,14 @@ z_index = 1
 collision_mask = 2684354560
 script = ExtResource("1_0yp5i")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 1)
-shape = ExtResource("2_gajhe")
-
 [node name="Sprite2D" type="Sprite2D" parent="."]
 material = ExtResource("3_gm3ow")
 position = Vector2(0, 1)
 texture = ExtResource("4_obmw3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 1)
+shape = ExtResource("2_gajhe")
 
 [node name="PlatformerMove2D" type="Node" parent="." node_paths=PackedStringArray("Platformer")]
 script = ExtResource("5_pyxok")

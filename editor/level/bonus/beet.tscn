@@ -1,0 +1,37 @@
+[gd_scene load_steps=8 format=3 uid="uid://bptqgmwjfs0kn"]
+
+[ext_resource type="Script" path="res://moon/Godot/Platformer2D/CharaPlatformer2D.cs" id="1_p2o6b"]
+[ext_resource type="Shape2D" uid="uid://byt80g1jyj5b1" path="res://asset/shape/enemy_std.tres" id="2_2towp"]
+[ext_resource type="SpriteFrames" uid="uid://cwny6b6k4i2y3" path="res://asset/sprite/bonus/beet.aseprite" id="3_4bjh4"]
+[ext_resource type="Script" path="res://moon/Godot/Anim/AnimSprite2D.cs" id="5_pi6q1"]
+[ext_resource type="PackedScene" uid="uid://dao73w5byhlyt" path="res://asset/node/bonus/item_power_up.tscn" id="6_x3r07"]
+[ext_resource type="Script" path="res://dev/Level/Bonus/Item/ItemSprout.cs" id="7_r1244"]
+[ext_resource type="Script" path="res://moon/Component/ViewDestroyer.cs" id="8_kitnk"]
+
+[node name="Beet" type="CharacterBody2D"]
+z_index = 1
+collision_mask = 2684354560
+script = ExtResource("1_p2o6b")
+
+[node name="AnimSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-1, -1)
+sprite_frames = ExtResource("3_4bjh4")
+animation = &"Default"
+script = ExtResource("5_pi6q1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 1)
+shape = ExtResource("2_2towp")
+
+[node name="ItemPowerUp" parent="." node_paths=PackedStringArray("Body") instance=ExtResource("6_x3r07")]
+State = 3
+Body = NodePath("..")
+
+[node name="ItemSprout" type="Node" parent="." node_paths=PackedStringArray("Body")]
+script = ExtResource("7_r1244")
+Body = NodePath("..")
+
+[node name="ViewDestroyer" type="Node" parent="." node_paths=PackedStringArray("MonitorNode")]
+script = ExtResource("8_kitnk")
+MonitorNode = NodePath("..")
+Area = 1

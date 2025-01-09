@@ -1,5 +1,6 @@
 using Component;
 using Godot;
+using Utils;
 
 namespace Level;
 
@@ -63,6 +64,7 @@ public partial class FragmentCaster : Node
             fragment.SetGravitySpeed(gravity);
             fragment.SetMoveSpeed(speed);
             fragment.Position = Root.Position + offset;
+            if (speed < 0f) fragment.TryInitFlipAll();
             Root.AddSibling(fragment);
         }
     }

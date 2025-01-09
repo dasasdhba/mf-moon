@@ -1,0 +1,42 @@
+[gd_scene load_steps=9 format=3 uid="uid://ccputtp85x884"]
+
+[ext_resource type="Script" path="res://moon/Godot/Platformer2D/CharaPlatformer2D.cs" id="1_yfam3"]
+[ext_resource type="Texture2D" uid="uid://4np6pa84o0ru" path="res://asset/sprite/projectile/beet.png" id="2_bw5us"]
+[ext_resource type="Shape2D" uid="uid://cgn543ecs7ix1" path="res://asset/shape/beet.tres" id="3_mckmx"]
+[ext_resource type="Script" path="res://dev/Level/Misc/BeetMovement.cs" id="4_25hox"]
+[ext_resource type="Script" path="res://moon/Component/Node2DCaster.cs" id="4_bk77s"]
+[ext_resource type="Script" path="res://dev/Level/Bonus/Block/BlockHitPlatformer.cs" id="5_gm3cp"]
+[ext_resource type="PackedScene" uid="uid://d3yyy8breqnwh" path="res://asset/node/effect/boom.tscn" id="5_uii0f"]
+[ext_resource type="AudioStream" uid="uid://uyuygx403dlo" path="res://asset/audio/sound/effect/stun.wav" id="8_bmxf7"]
+
+[node name="Beet" type="CharacterBody2D"]
+z_index = 10
+collision_mask = 2147483648
+script = ExtResource("1_yfam3")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_bw5us")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 3)
+shape = ExtResource("3_mckmx")
+
+[node name="Movement" type="Node" parent="." node_paths=PackedStringArray("Body")]
+script = ExtResource("4_25hox")
+Body = NodePath("..")
+
+[node name="HitBlock" type="Node" parent="." node_paths=PackedStringArray("Body")]
+script = ExtResource("5_gm3cp")
+Body = NodePath("..")
+
+[node name="Boom" type="Node" parent="." node_paths=PackedStringArray("Root")]
+script = ExtResource("4_bk77s")
+Root = NodePath("..")
+Node2DScene = ExtResource("5_uii0f")
+Offset = Vector2(0, 16)
+
+[node name="Stun" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_bmxf7")
+
+[connection signal="Bounced" from="Movement" to="Boom" method="Cast"]
+[connection signal="Bounced" from="Movement" to="Stun" method="play"]

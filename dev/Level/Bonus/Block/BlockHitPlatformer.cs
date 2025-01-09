@@ -54,6 +54,10 @@ public partial class BlockHitPlatformer : BlockHit
     {
         TreeEntered += () =>
         {
+            if (Body is CharaPlatformer2D chara)
+            {
+                Overlap.Margin = chara.SafeMargin;
+            }
             this.AddPhysicsProcess(TryHitHidden);
         };
         
