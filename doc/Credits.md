@@ -23,6 +23,8 @@
 ### Rippers
 
 * ANAS WAEL
+* Beam Luinsir Yosho
+* Clide Bowser
 
 ## Sounds
 

@@ -46,6 +46,7 @@ shape = ExtResource("6_cokn0")
 [node name="BlockItem" type="Node" parent="." node_paths=PackedStringArray("Body")]
 script = ExtResource("7_ohwkc")
 Oneshot = false
+LoadInTree = false
 CoinEffect = ExtResource("9_sbh0n")
 Body = NodePath("..")
 

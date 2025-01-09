@@ -145,6 +145,7 @@ public partial class EnemyRef : Node
             if (AllowStomp != StompType.Invalid)
             {
                 Recorder = new() { Target = Body };
+                Recorder.BindParent(this);
                 AddChild(Recorder);
             }
 

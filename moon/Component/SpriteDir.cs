@@ -1,4 +1,5 @@
 using Godot;
+using Utils;
 
 namespace Component;
 
@@ -34,6 +35,7 @@ public partial class SpriteDir : Node, IFlipInit
         if (Root != null && Root is not IPlatformer2D)
         {
             Recorder = new() { Target = Root };
+            Recorder.BindParent(this);
             AddChild(Recorder);
         }
     }

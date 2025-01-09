@@ -35,15 +35,5 @@ public partial class BlockCoin : Node
             }
         };
     }
-    
-#if TOOLS
-    public override void _Ready()
-    {
-        if (BlockRef.DefaultLoader != null)
-        {
-            GD.PushWarning("Loading item in Coin Brick is not expected.");
-        }
-    }
-#endif
 
 }

@@ -1,6 +1,7 @@
 using Component;
 using Global;
 using Godot;
+using GodotTask;
 
 namespace Level;
 
@@ -14,6 +15,9 @@ public partial class BlockItem : BlockRef
     public bool AutoMushroom { get; set; } = true;
     
     [ExportGroup("Default")]
+    [Export]
+    public bool LoadInTree { get; set; } = true;
+    
     [Export]
     public PackedScene DefaultItem { get; set; }
     public AsyncLoader<Node2D> DefaultLoader { get; set; }
@@ -48,11 +52,11 @@ public partial class BlockItem : BlockRef
 
     /// <summary>
     /// Load item which is already in tree, this would be called by ItemSprout.
-    /// Failed if DefaultItem is not null.
+    /// Failed if DefaultItem is not null or LoadInTree is false.
     /// </summary>
     public bool TryLoadItem(Node2D item)
     {
-        if (DefaultItem != null) return false;
+        if (!LoadInTree || DefaultItem != null) return false;
         LoadedItem = item;
         LoadedItem.GetParent().CallDeferred(Node.MethodName.RemoveChild, LoadedItem);
         IsItemPowerUp = ItemRef.HasItemRef(item) && ItemRef.GetItemRef(item) is ItemPowerUp;
@@ -62,16 +66,20 @@ public partial class BlockItem : BlockRef
 
     public BlockItem() : base()
     {
-        Ready += () =>
-        {
-            if (LoadedItem != null) DefaultLoader = new(this, LoadedItem.SceneFilePath);
-            else if (DefaultItem != null) DefaultLoader = new(this, DefaultItem);
-            
-            if (DefaultLoader == null) CoinLoader = new(this, CoinEffect);
-            else MushroomLoader = new(this, MushroomScene);
-        };
-        
+        TreeEntered += () => LoaderInit().Forget();
         SignalQueuedHit += (hit, data) => Activate(data);
+    }
+    
+    private async GDTaskVoid LoaderInit()
+    {
+        // wait for loading in tree
+        
+        await GDTask.WaitForPhysicsProcess();
+        if (LoadedItem != null) DefaultLoader = new(this, LoadedItem.SceneFilePath);
+        else if (DefaultItem != null) DefaultLoader = new(this, DefaultItem);
+            
+        if (DefaultLoader == null) CoinLoader = new(this, CoinEffect);
+        else MushroomLoader = new(this, MushroomScene);
     }
     
     private bool ShouldCreateMushroom()

@@ -33,13 +33,14 @@ public partial class PlayerStarParticles : SimpleParticles
             Stream = StarMusic,
             FadeTime = Ref.Star.RunningOutTime * (1f - MusicFadePoint)
         };
+        StarMusicPlayer.BindParent(this);
         AddChild(StarMusicPlayer);
     
         Ref.Star.SignalStarted += StarMusicStart;
         Ref.Star.SignalEnded += StarMusicEnd;
         TreeExited += StarMusicEnd;
         
-        Ref.Star.RunningOut += () =>
+        Ref.Star.SignalRunningOut += () =>
         {
             var fadeTime = Ref.Star.RunningOutTime * MusicFadePoint;
             this.ActionDelay(fadeTime, () => StarMusicPlayer.FadeStop());
