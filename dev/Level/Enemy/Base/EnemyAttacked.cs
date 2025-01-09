@@ -1,6 +1,5 @@
 using Godot;
 using System.Collections.Generic;
-using System.Linq;
 using Utils;
 
 namespace Level;
@@ -90,7 +89,7 @@ public partial class EnemyAttacked : Node
 
     public override void _EnterTree()
     {
-        Settings = new()
+        Settings ??= new()
         {
             { AttackType.Stomp, Stomp },
             { AttackType.Fireball, Fireball },

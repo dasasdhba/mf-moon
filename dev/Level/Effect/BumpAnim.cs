@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using Utils;
 
 namespace Level;
 
@@ -29,22 +30,25 @@ public partial class BumpAnim : Node2D
 
     protected Vector2 Origin { get; set; }
 
-    public override void _Ready() => Origin = Position;
-
-    public override void _Process(double delta)
+    public override void _EnterTree()
     {
-        if (Active)
-        {
-            Angle += (float)(Omega * delta);
-            Position = Origin + Direction *
-                Height * (float)Math.Sin(Mathf.DegToRad(Angle));
-            if (Angle >= 180f)
-            {
-                Angle = 0f;
-                Position = Origin;
-                Active = false;
-            }
+        Origin = Position;
+        
+        this.AddProcess(BumpProcess);
+    }
 
+    public void BumpProcess(double delta)
+    {
+        if (!Active) return;
+        
+        Angle += (float)(Omega * delta);
+        Position = Origin + Direction *
+            Height * (float)Math.Sin(Mathf.DegToRad(Angle));
+        if (Angle >= 180f)
+        {
+            Angle = 0f;
+            Position = Origin;
+            Active = false;
         }
     }
 }

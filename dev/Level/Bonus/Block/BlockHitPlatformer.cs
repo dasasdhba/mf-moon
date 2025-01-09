@@ -54,13 +54,18 @@ public partial class BlockHitPlatformer : BlockHit
     {
         TreeEntered += () =>
         {
+            this.AddPhysicsProcess(TryHitHidden);
+        };
+        
+        Ready += () =>
+        {
             if (Body is not IPlatformer2D platformer) return;
 
             platformer.SignalCeilingCollided += () =>
             {
                 if (EnableJump)
                     TryHit(JumpHardness, JumpMargin * 
-                        -platformer.GetGravityDirection(),
+                            -platformer.GetGravityDirection(),
                         GetJumpData());
             };
 
@@ -68,7 +73,7 @@ public partial class BlockHitPlatformer : BlockHit
             {
                 if (EnableFall)
                     TryHit(FallHardness, FallMargin * 
-                        platformer.GetGravityDirection(), 
+                            platformer.GetGravityDirection(), 
                         GetFallData());
             };
 
@@ -76,11 +81,9 @@ public partial class BlockHitPlatformer : BlockHit
             {
                 if (EnableMove)
                     TryHit(MoveHardness, MoveMargin * 
-                        Math.Sign(platformer.GetLastMoveSpeed()) * platformer.GetMoveDirection(),
+                            Math.Sign(platformer.GetLastMoveSpeed()) * platformer.GetMoveDirection(),
                         GetMoveData());
             };
-            
-            this.AddPhysicsProcess(TryHitHidden);
         };
     }
 

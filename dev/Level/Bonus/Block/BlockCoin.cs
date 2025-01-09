@@ -18,7 +18,7 @@ public partial class BlockCoin : Node
     private bool TimerStarted { get; set; } = false;
     private bool Timeout { get; set; } = false;
 
-    public override void _EnterTree()
+    public override void _Ready()
     {
         BlockRef.SignalCoinSpawned += (coin) =>
         {

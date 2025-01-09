@@ -75,7 +75,7 @@ public partial class PlayerStomp : Node
             
             if (OverlapDelayList.Contains(e)) continue;
             OverlapDelayList.Add(e);
-            var delay = e.ActionDelay(OverlapDelay, null);
+            var delay = e.ActionPhysicsDelay(OverlapDelay, null);
             delay.TreeExited += () => OverlapDelayList.Remove(e);
             
             // stomp and hurt detect

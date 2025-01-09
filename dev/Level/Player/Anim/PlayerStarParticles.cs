@@ -28,14 +28,18 @@ public partial class PlayerStarParticles : SimpleParticles
 
     public override void _EnterTree()
     {
+        if (StarMusicPlayer != null) return;
+    
         StarMusicPlayer = new()
         {
             Stream = StarMusic,
             FadeTime = Ref.Star.RunningOutTime * (1f - MusicFadePoint)
         };
-        StarMusicPlayer.BindParent(this);
         AddChild(StarMusicPlayer);
-    
+    }
+
+    public override void _Ready()
+    {
         Ref.Star.SignalStarted += StarMusicStart;
         Ref.Star.SignalEnded += StarMusicEnd;
         TreeExited += StarMusicEnd;

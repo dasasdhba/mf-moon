@@ -142,13 +142,15 @@ public partial class EnemyRef : Node
     
         TreeEntered += () =>
         {
-            if (AllowStomp != StompType.Invalid)
+            if (AllowStomp != StompType.Invalid && Recorder == null)
             {
                 Recorder = new() { Target = Body };
-                Recorder.BindParent(this);
                 AddChild(Recorder);
             }
-
+        };
+        
+        Ready += () =>
+        {
             if (EnemyAttacked.HasEnemyAttacked(Body))
             {
                 var atk = EnemyAttacked.GetEnemyAttacked(Body);

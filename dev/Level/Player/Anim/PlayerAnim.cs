@@ -25,8 +25,13 @@ public partial class PlayerAnim : AnimGroup2D
 
     public override void _EnterTree()
     {    
-        // swim
+        CurrentSprite = Globalvar.Player.State.ToString();
         
+        this.AddPhysicsProcess(Process);
+    }
+
+    public override void _Ready()
+    {
         Ref.Jump.SignalSwum += () => Play("Swim");
         Ref.Jump.SignalJumpedOutWater += () => Play("Swim");
         SignalAnimationFinished += () =>
@@ -38,12 +43,8 @@ public partial class PlayerAnim : AnimGroup2D
         };
         
         Ref.Hurt.SignalPowerDown += () => PlayHurt().Forget();
-        
-        CurrentSprite = Globalvar.Player.State.ToString();
-        
-        this.AddPhysicsProcess(Process);
     }
-    
+
     private double HurtFlashInterval = 0.03d;
     private float HurtAlpha = 0f;
     public async GDTaskVoid PlayHurt()

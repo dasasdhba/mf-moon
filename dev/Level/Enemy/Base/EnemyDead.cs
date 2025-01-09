@@ -49,7 +49,10 @@ public partial class EnemyDead : Node
         
             if (DeadScene != null)
                 DeadLoader = new(this, DeadScene);
-
+        };
+        
+        Ready += () =>
+        {
             if (!Manual && EnemyAttacked.HasEnemyAttacked(Body))
             {
                 var atked = EnemyAttacked.GetEnemyAttacked(Body);

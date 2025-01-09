@@ -11,7 +11,7 @@ public partial class CoinAdd : Node
 
     public CoinAdd() : base()
     {
-        TreeEntered += Add;
+        Ready += Add;
     }
     
     public void Add() => Globalvar.Player.Coin += Value;
