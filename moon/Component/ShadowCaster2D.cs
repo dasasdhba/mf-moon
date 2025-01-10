@@ -291,7 +291,7 @@ public partial class ShadowCaster2D : Node
             {
                 if (Emitting) Emit();
                 else ResetIndex();
-            }, ProcessCallback == ShadowCaster2DProcessCallback.Physics);
+            }, true, ProcessCallback == ShadowCaster2DProcessCallback.Physics);
         };
         
         TreeExited += () =>
