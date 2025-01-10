@@ -12,7 +12,7 @@
 script = ExtResource("2_nw7co")
 MonitorNode = NodePath("..")
 Mode = 1
-UpRange = -1.0
+MonitorUp = false
 
 [node name="Attacker" type="Node" parent="." index="8" node_paths=PackedStringArray("Body")]
 script = ExtResource("3_26k3e")

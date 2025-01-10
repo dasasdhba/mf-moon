@@ -49,7 +49,10 @@ public partial class PlayerTransform : AnimSprite2D
             var intState = (int)Globalvar.Player.State;
             if (intState > Math.Min(1, (int)LastState))
             {
-                Play(intState > 1 ? "Super" : "Small");
+                var anim = intState > 1 ? Globalvar.Player.State.ToString() : "Small";
+                if (!SpriteFrames.HasAnimation(anim)) anim = Globalvar.PlayerState.Fire.ToString();
+                Play(anim);
+                
                 TransformTimer = TransformTime;
                 Ref.Anim.Hide();
                 Show();

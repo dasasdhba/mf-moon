@@ -1,0 +1,57 @@
+[gd_scene load_steps=11 format=3 uid="uid://c1uu53rx20xut"]
+
+[ext_resource type="Script" path="res://moon/Godot/Platformer2D/CharaPlatformer2D.cs" id="1_6he24"]
+[ext_resource type="SpriteFrames" uid="uid://b36vgaxn6snwn" path="res://asset/sprite/bonus/lui.aseprite" id="2_pydjf"]
+[ext_resource type="Script" path="res://moon/Godot/Anim/AnimSprite2D.cs" id="3_tgdgl"]
+[ext_resource type="Shape2D" uid="uid://byt80g1jyj5b1" path="res://asset/shape/enemy_std.tres" id="4_ltsk5"]
+[ext_resource type="PackedScene" uid="uid://dao73w5byhlyt" path="res://asset/node/bonus/item_power_up.tscn" id="5_swa8n"]
+[ext_resource type="Script" path="res://dev/Level/Bonus/Item/ItemSprout.cs" id="6_6xjjf"]
+[ext_resource type="Script" path="res://moon/Component/ViewDestroyer.cs" id="7_dy54u"]
+[ext_resource type="Script" path="res://moon/Component/Jumper.cs" id="8_yyedo"]
+[ext_resource type="AudioStream" uid="uid://clgeos1e5evrk" path="res://asset/audio/sound/effect/combo_1.wav" id="9_7fmup"]
+[ext_resource type="Script" path="res://moon/Component/ViewMonitor.cs" id="9_stsq1"]
+
+[node name="Lui" type="CharacterBody2D"]
+z_index = 1
+collision_mask = 2684354560
+script = ExtResource("1_6he24")
+GravityAccSpeed = 500.0
+GravityDecSpeed = 500.0
+
+[node name="AnimSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = ExtResource("2_pydjf")
+animation = &"Default"
+script = ExtResource("3_tgdgl")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 1)
+shape = ExtResource("4_ltsk5")
+
+[node name="ItemPowerUp" parent="." node_paths=PackedStringArray("Body") instance=ExtResource("5_swa8n")]
+State = 4
+Body = NodePath("..")
+
+[node name="ItemSprout" type="Node" parent="." node_paths=PackedStringArray("Body")]
+script = ExtResource("6_6xjjf")
+Body = NodePath("..")
+
+[node name="ViewDestroyer" type="Node" parent="." node_paths=PackedStringArray("MonitorNode")]
+script = ExtResource("7_dy54u")
+MonitorNode = NodePath("..")
+Area = 1
+
+[node name="Jumper" type="Node" parent="." node_paths=PackedStringArray("Platformer")]
+script = ExtResource("8_yyedo")
+Platformer = NodePath("..")
+Speed = 350.0
+
+[node name="ViewMonitor" type="Node" parent="." node_paths=PackedStringArray("MonitorNode")]
+script = ExtResource("9_stsq1")
+MonitorNode = NodePath("..")
+Mode = 2
+
+[node name="JumpSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_7fmup")
+
+[connection signal="FloorCollided" from="." to="ViewMonitor" method="Invoke"]
+[connection signal="InvokeInView" from="ViewMonitor" to="JumpSound" method="play"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=4 uid="uid://dv23hc5jyjdet"]
+[gd_scene load_steps=18 format=4 uid="uid://dv23hc5jyjdet"]
 
 [ext_resource type="TileSet" uid="uid://bveh5l6u2fgow" path="res://asset/tileset/marks_set.tres" id="1_6s1n2"]
 [ext_resource type="PackedScene" uid="uid://y2i7o7naha3f" path="res://asset/node/player/player_base.tscn" id="2_8w4k4"]
@@ -16,6 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://b31npxo6w32md" path="res://editor/level/bonus/coin.tscn" id="14_5vaac"]
 [ext_resource type="PackedScene" uid="uid://ddl08l8236y5m" path="res://editor/level/bonus/brick_coin.tscn" id="15_gl7wc"]
 [ext_resource type="PackedScene" uid="uid://bptqgmwjfs0kn" path="res://editor/level/bonus/beet.tscn" id="16_4to4l"]
+[ext_resource type="PackedScene" uid="uid://c1uu53rx20xut" path="res://editor/level/bonus/lui.tscn" id="17_mn6bc"]
 
 [node name="LevelTestRoom" type="Node2D"]
 
@@ -152,5 +153,8 @@ position = Vector2(432, 272)
 
 [node name="Beet2" parent="." instance=ExtResource("16_4to4l")]
 position = Vector2(368, 368)
+
+[node name="Lui" parent="." instance=ExtResource("17_mn6bc")]
+position = Vector2(880, 336)
 
 [editable path="Block3"]

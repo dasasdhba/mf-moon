@@ -5,6 +5,7 @@
 * -15: Sprouting Items
 * -10: Tiles
 * -5: Block
+* -3: Shadow
 * -1: Stomped Goomba, Coin Effect, Brick Fragment
 * 0: Misc
 * 1: Items
