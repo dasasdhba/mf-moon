@@ -22,14 +22,13 @@ collision_mask = 0
 script = ExtResource("1_4pnjo")
 
 [node name="Bump" type="Sprite2D" parent="Bump"]
-visible = false
 material = ExtResource("1_disn2")
-position = Vector2(0, 1)
+position = Vector2(0.5, 1)
 texture = ExtResource("4_dkjpn")
 
 [node name="AnimSprite2D" type="AnimatedSprite2D" parent="Bump"]
 material = ExtResource("1_disn2")
-position = Vector2(0, 1)
+position = Vector2(0.5, 1)
 sprite_frames = ExtResource("2_ciocr")
 animation = &"Default"
 script = ExtResource("1_c1rup")

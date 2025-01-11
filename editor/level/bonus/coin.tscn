@@ -13,7 +13,7 @@ collision_mask = 0
 
 [node name="AnimSprite2D" type="AnimatedSprite2D" parent="."]
 material = ExtResource("1_tb8ge")
-position = Vector2(0, 1)
+position = Vector2(0.5, 1)
 sprite_frames = ExtResource("2_0cqwc")
 animation = &"Default"
 script = ExtResource("3_ts8k6")

@@ -181,43 +181,48 @@ State = 3
 Ref = NodePath("../../Ref")
 
 [node name="Anim" type="Node2D" parent="." node_paths=PackedStringArray("Ref")]
+position = Vector2(0, -2)
 script = ExtResource("2_xjjnt")
 Ref = NodePath("../Ref")
 Autoplay = "Idle"
 
 [node name="Small" type="AnimatedSprite2D" parent="Anim"]
+visible = false
 material = ExtResource("23_kubls")
-position = Vector2(0, -1)
 sprite_frames = ExtResource("2_nc2t5")
 animation = &"Idle"
 
 [node name="Super" type="AnimatedSprite2D" parent="Anim"]
+visible = false
 material = ExtResource("23_kubls")
-position = Vector2(0, -17)
+position = Vector2(0, -16)
 sprite_frames = ExtResource("5_k34yg")
 animation = &"Idle"
 
 [node name="Fire" type="AnimatedSprite2D" parent="Anim"]
+visible = false
 material = ExtResource("23_kubls")
-position = Vector2(0, -17)
+position = Vector2(0, -16)
 sprite_frames = ExtResource("6_y03an")
 animation = &"Idle"
 
 [node name="Beet" type="AnimatedSprite2D" parent="Anim"]
+visible = false
 material = ExtResource("23_kubls")
-position = Vector2(0, -17)
+position = Vector2(0, -16)
 sprite_frames = ExtResource("38_m37ye")
 animation = &"Idle"
 
 [node name="Lui" type="AnimatedSprite2D" parent="Anim"]
+visible = false
 material = ExtResource("23_kubls")
-position = Vector2(0, -17)
+position = Vector2(0, -16)
 sprite_frames = ExtResource("38_pmhw2")
 animation = &"Idle"
 
 [node name="Transform" type="AnimatedSprite2D" parent="." node_paths=PackedStringArray("Ref")]
 visible = false
-position = Vector2(0, -18)
+position = Vector2(0, -19)
 sprite_frames = ExtResource("21_q4t6o")
 animation = &"Beet"
 script = ExtResource("22_ajnrh")

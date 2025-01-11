@@ -22,7 +22,6 @@ position = Vector2(0, 1)
 shape = ExtResource("2_rcgl6")
 
 [node name="AnimSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(0, 1)
 sprite_frames = ExtResource("3_uu7fx")
 animation = &"Default"
 script = ExtResource("4_u2jun")

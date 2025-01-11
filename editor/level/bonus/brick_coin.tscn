@@ -24,12 +24,12 @@ script = ExtResource("1_5wugm")
 [node name="Bump" type="Sprite2D" parent="Bump"]
 visible = false
 material = ExtResource("2_se5pi")
-position = Vector2(0, 1)
+position = Vector2(0.5, 1)
 texture = ExtResource("3_g3xfv")
 
 [node name="Sprite2D" type="Sprite2D" parent="Bump"]
 material = ExtResource("2_se5pi")
-position = Vector2(0, 1)
+position = Vector2(0.5, 1)
 texture = ExtResource("4_1nny1")
 
 [node name="EditorHint" type="AnimatedSprite2D" parent="Bump"]

@@ -23,7 +23,7 @@ script = ExtResource("1_6dd2y")
 
 [node name="Sprite2D" type="Sprite2D" parent="Bump"]
 material = ExtResource("2_hny7l")
-position = Vector2(0, 1)
+position = Vector2(0.5, 1)
 texture = ExtResource("3_vync2")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
