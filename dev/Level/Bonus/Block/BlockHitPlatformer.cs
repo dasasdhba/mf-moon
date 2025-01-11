@@ -49,15 +49,11 @@ public partial class BlockHitPlatformer : BlockHit
     protected virtual RefCounted GetJumpData() => null;
     protected virtual RefCounted GetFallData() => null;
     protected virtual RefCounted GetMoveData() => null;
-
+    
     public BlockHitPlatformer() : base()
     {
         TreeEntered += () =>
         {
-            if (Body is CharaPlatformer2D chara)
-            {
-                Overlap.Margin = chara.SafeMargin;
-            }
             this.AddPhysicsProcess(TryHitHidden);
         };
         
@@ -81,11 +77,11 @@ public partial class BlockHitPlatformer : BlockHit
                         GetFallData());
             };
 
-            platformer.SignalWallCollided += () =>
+            platformer.SignalWallCollided += (dir) =>
             {
                 if (EnableMove)
                     TryHit(MoveHardness, MoveMargin * 
-                            Math.Sign(platformer.GetLastMoveSpeed()) * platformer.GetMoveDirection(),
+                            dir * platformer.GetMoveDirection(),
                         GetMoveData());
             };
         };
@@ -102,7 +98,8 @@ public partial class BlockHitPlatformer : BlockHit
             return;
         }
         
-        // ATTENTION: as the body should be IPlatformer, the following code is unreachable
+        // as the body should be IPlatformer, the following code is unreachable
+        // we keep it here for future use (maybe)
         
         var dir = motion.Normalized();
         do
@@ -118,10 +115,11 @@ public partial class BlockHitPlatformer : BlockHit
         
         var platformer = (IPlatformer2D)Body;
         
+        var gSpeed = platformer.GetGravitySpeed();
         var gDir = platformer.GetGravityDirection();
-        var mSign = Math.Sign(platformer.GetLastMoveSpeed());
+        var mSign = Math.Sign(platformer.GetMoveSpeed());
         var mDir = mSign * platformer.GetMoveDirection();
-
+        
         foreach (var result in Overlap.GetOverlappingObjects(
                      r => BlockRef.HasBlockRef(r.Collider),
                      Vector2.Zero,
@@ -130,8 +128,6 @@ public partial class BlockHitPlatformer : BlockHit
         {
             var block = BlockRef.GetBlockRef(result.Collider);
             if (!block.Hidden || block.Disabled) continue;
-
-            var gSpeed = platformer.GetLastGravitySpeed();
 
             if (EnableJump && gSpeed < 0f && !IsOverlappingWith(block, JumpHiddenMargin * gDir))
             {

@@ -8,7 +8,7 @@ public partial class FireballExplosion : SimpleExplosion
     {
         if (Root is IPlatformer2D platformer)
         {
-            platformer.SignalWallCollided += Explode;
+            platformer.SignalWallCollided += dir => Explode();
             platformer.SignalCeilingCollided += Explode;
         }
     }

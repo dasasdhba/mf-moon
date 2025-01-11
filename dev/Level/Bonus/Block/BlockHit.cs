@@ -56,6 +56,9 @@ public partial class BlockHit : Node
         }
     }
     
+    // Manual hit block will not be hit by general hit detection once.
+    // This prevent multiple hit for hidden blocks.
+    
     private List<BlockRef> ManualBlocks = [];
     public void TryHitManual(BlockRef block, int hardness, RefCounted data = null)
     {
