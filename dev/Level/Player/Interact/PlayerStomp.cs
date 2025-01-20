@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Godot;
 using Utils;
@@ -46,6 +47,8 @@ public partial class PlayerStomp : Node
     protected void StompProcess(double delta)
     {
         if (Ref.InteractionControl.IsDisabled()) return;
+        
+        Action stompAction = null;
     
         foreach (var result in Overlap.GetOverlappingObjects(
                      r => EnemyRef.HasEnemyRef(r.Collider),
@@ -82,7 +85,7 @@ public partial class PlayerStomp : Node
             
             if (CanStomp(e))
             {
-                StompJump(e.StompSpeed, e.StompJumpSpeed);
+                stompAction = () => StompJump(e.StompSpeed, e.StompJumpSpeed);
                 e.EmitSignal(EnemyRef.SignalName.Stomped, Ref);
             }
             else
@@ -97,6 +100,9 @@ public partial class PlayerStomp : Node
                     }
                 }
             }
+            
+            // delay the stomp call to allow stomping multiple enemies at once
+            stompAction?.Invoke();
         }
     }
 

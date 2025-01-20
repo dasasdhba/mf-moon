@@ -1,21 +1,16 @@
 [gd_scene load_steps=3 format=3 uid="uid://cr2krodx0mvb5"]
 
-[ext_resource type="Script" path="res://moon/Godot/TextureFill/color_fill.gd" id="1_njays"]
+[ext_resource type="Script" path="res://moon/Godot/TextureFill/ColorFill.cs" id="1_y23fb"]
 [ext_resource type="Shape2D" uid="uid://bwf7jxqmmanyf" path="res://asset/shape/block.tres" id="2_6f5ag"]
 
 [node name="Water" type="StaticBody2D"]
 collision_mask = 0
 metadata/Water = true
 
-[node name="ColorFill" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-offset_left = -16.0
-offset_top = -16.0
-offset_right = 16.0
-offset_bottom = 16.0
-script = ExtResource("1_njays")
-color = Color(0, 1, 1, 0.501961)
+[node name="ColorFill" type="Node2D" parent="."]
+position = Vector2(-16, -16)
+script = ExtResource("1_y23fb")
+Color = Color(0, 1, 1, 0.501961)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = ExtResource("2_6f5ag")
